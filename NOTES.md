@@ -1,0 +1,2 @@
+  * Look at the NINA-W10(1/2) series with A2DP support for Bluetooth audio.
+    * https://www.digikey.fr/htmldatasheets/production/2753722/0/0/1/nina-w10-series-summary.html?srsltid=AfmBOoqzjd4HdBKgILKWtJRSyD18Gzp021fWrH4y8LcBL0f_pSAlOtAi
