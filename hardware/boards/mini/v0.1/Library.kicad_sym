@@ -52,7 +52,7 @@
 		(symbol "RythmMini_1_1"
 			(rectangle
 				(start -15.24 27.94)
-				(end 15.24 -27.94)
+				(end 15.24 -29.21)
 				(stroke
 					(width 0)
 					(type solid)
@@ -95,7 +95,7 @@
 						)
 					)
 				)
-				(number "F8"
+				(number "G1"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -103,7 +103,7 @@
 					)
 				)
 			)
-			(pin input line
+			(pin input clock
 				(at -19.05 17.78 0)
 				(length 3.81)
 				(name "CLK"
@@ -338,6 +338,42 @@
 				)
 			)
 			(pin input line
+				(at -19.05 -24.13 0)
+				(length 3.81)
+				(name "PB5/RX"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "E1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at -19.05 -26.67 0)
+				(length 3.81)
+				(name "PB6/TX"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "D1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin input line
 				(at -17.78 22.86 0)
 				(length 2.54)
 				(name "BOOT"
@@ -348,6 +384,24 @@
 					)
 				)
 				(number ""
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at -5.08 30.48 270)
+				(length 2.54)
+				(name "VBAT"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "F1"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -373,27 +427,8 @@
 					)
 				)
 			)
-			(pin passive line
-				(at 0 -20.32 90)
-				(length 4.064)
-				(hide yes)
-				(name "GND"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "Y1"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
 			(pin power_in line
-				(at 0 -31.75 90)
+				(at 0 -33.02 90)
 				(length 3.81)
 				(name "GND"
 					(effects
@@ -411,7 +446,7 @@
 				)
 			)
 			(pin passive line
-				(at 0 -31.75 90)
+				(at 0 -33.02 90)
 				(length 3.81)
 				(hide yes)
 				(name "GND"
@@ -430,7 +465,26 @@
 				)
 			)
 			(pin passive line
-				(at 0 -31.75 90)
+				(at 0 -33.02 90)
+				(length 3.81)
+				(hide yes)
+				(name "GND"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "Y1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -33.02 90)
 				(length 3.81)
 				(hide yes)
 				(name "GND"
@@ -621,6 +675,96 @@
 					)
 				)
 				(number "E9"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin input clock
+				(at 19.05 -15.24 180)
+				(length 3.81)
+				(name "PA5/SCK"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "M1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at 19.05 -17.78 180)
+				(length 3.81)
+				(name "PA6/MISO"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "N1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at 19.05 -20.32 180)
+				(length 3.81)
+				(name "PA7/MOSI"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "O1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at 19.05 -24.13 180)
+				(length 3.81)
+				(name "PB7/SCL"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "C1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at 19.05 -26.67 180)
+				(length 3.81)
+				(name "PB8/SDA"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "B1"
 					(effects
 						(font
 							(size 1.27 1.27)
