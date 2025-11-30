@@ -467,10 +467,12 @@
   },
   "libraries": {
     "pinned_footprint_libs": [
-      "Library"
+      "Library",
+      "Rythm"
     ],
     "pinned_symbol_libs": [
-      "Library"
+      "Library",
+      "Rythm"
     ]
   },
   "meta": {

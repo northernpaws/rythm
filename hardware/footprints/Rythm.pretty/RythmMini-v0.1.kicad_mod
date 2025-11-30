@@ -1,4 +1,4 @@
-(footprint "RythmMini"
+(footprint "RythmMini-v0.1"
 	(version 20241229)
 	(generator "pcbnew")
 	(generator_version "9.0")
@@ -15,7 +15,7 @@
 			)
 		)
 	)
-	(property "Value" "RythmMini"
+	(property "Value" "RythmMini-v0.1"
 		(at 0 1 0)
 		(unlocked yes)
 		(layer "F.Fab")
@@ -161,19 +161,19 @@
 			)
 		)
 	)
-	(pad "3v3" smd roundrect
-		(at -1 24)
-		(size 1.5 1.5)
-		(layers "B.Cu" "B.Mask" "B.Paste")
-		(roundrect_rratio 0.15)
-		(thermal_bridge_angle 45)
-		(uuid "5d9366e7-8fac-47f4-8960-059f10c11dbc")
-	)
 	(pad "A1" smd circle
 		(at -8 -24)
 		(size 1.5 1.5)
 		(layers "B.Cu" "B.Mask" "B.Paste")
 		(uuid "87c76b4c-195e-40a4-98ee-e9adbb8fc9bc")
+	)
+	(pad "A2" smd roundrect
+		(at -6 -24)
+		(size 1.5 1.5)
+		(layers "B.Cu" "B.Mask" "B.Paste")
+		(roundrect_rratio 0.15)
+		(thermal_bridge_angle 45)
+		(uuid "add3c782-f11a-45a1-abb9-fd858163c61f")
 	)
 	(pad "A3" smd roundrect
 		(at -4 -24)
@@ -349,14 +349,6 @@
 		(thermal_bridge_angle 45)
 		(uuid "43085db1-dc06-4cc1-b217-e050d5e0cb63")
 	)
-	(pad "GND" smd roundrect
-		(at -6 -24)
-		(size 1.5 1.5)
-		(layers "B.Cu" "B.Mask" "B.Paste")
-		(roundrect_rratio 0.15)
-		(thermal_bridge_angle 45)
-		(uuid "b789606f-cfa5-4b81-8a9a-1a500ac15fb2")
-	)
 	(pad "H8" smd roundrect
 		(at 6 -10)
 		(size 1.5 1.5)
@@ -469,13 +461,21 @@
 		(thermal_bridge_angle 45)
 		(uuid "b6b14c4d-3835-4889-84d9-edf46c9baa29")
 	)
-	(pad "PB13" smd roundrect
-		(at 8 12)
+	(pad "Q9" smd roundrect
+		(at 8 8)
 		(size 1.5 1.5)
 		(layers "B.Cu" "B.Mask" "B.Paste")
 		(roundrect_rratio 0.15)
 		(thermal_bridge_angle 45)
 		(uuid "a4ff15a2-aa9e-4041-b002-9ac74a74246e")
+	)
+	(pad "R9" smd roundrect
+		(at 8 10)
+		(size 1.5 1.5)
+		(layers "B.Cu" "B.Mask" "B.Paste")
+		(roundrect_rratio 0.15)
+		(thermal_bridge_angle 45)
+		(uuid "f5e9ce56-a215-4978-871d-40f347f7f262")
 	)
 	(pad "SCL" smd roundrect
 		(at -8 -22 90)
@@ -492,6 +492,14 @@
 		(roundrect_rratio 0.15)
 		(thermal_bridge_angle 45)
 		(uuid "e604cbad-de10-4418-9611-8d5ca50341a8")
+	)
+	(pad "T9" smd roundrect
+		(at 8 14)
+		(size 1.5 1.5)
+		(layers "B.Cu" "B.Mask" "B.Paste")
+		(roundrect_rratio 0.15)
+		(thermal_bridge_angle 45)
+		(uuid "a31496d1-62bd-4e29-9dd9-31b27bea0d38")
 	)
 	(pad "Y1" smd circle
 		(at -8 24)
