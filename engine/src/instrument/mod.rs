@@ -1,10 +1,13 @@
-use crate::{audio::AudioSource, theory::note::Note};
+use crate::{
+    audio::{AudioSource, Sample},
+    theory::note::Note,
+};
 
 pub enum NoteError {
     NoVoices,
 }
 
-pub trait Instrument<T>: AudioSource<T> {
+pub trait Instrument<T: Sample>: AudioSource<T> {
     /// Initializes the instrument for use.
     fn init(&mut self);
 

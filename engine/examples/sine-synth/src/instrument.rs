@@ -1,7 +1,7 @@
-use heapless::{Vec, index_map::FnvIndexMap};
+use heapless::index_map::FnvIndexMap;
 
 use rythm_engine::{
-    audio::{AudioSource, Buffer, oscillator::SineOscillator},
+    audio::{AudioSource, Buffer, Sample, oscillator::SineOscillator},
     instrument::{Instrument, NoteError},
     theory::note::Note,
 };
@@ -23,17 +23,22 @@ impl SineInstrument {
     }
 }
 
-impl<T> AudioSource<T> for SineInstrument {
+impl<T: Sample> AudioSource<T> for SineInstrument {
     fn render(&mut self, buffer: &'_ mut Buffer<T>) {
-        // Loop through each active voice and sum it to the output buffer.
-        for (_, voice) in self.voices.iter() {
-            let voice_buffer = buffer.new();
-            voice.render(voice_buffer);
+        for i in 0..buffer.frames() {
+            let mut frame: [T; 8] = [T; 8];
+
+            // Loop through each active voice and sum it to the output buffer.
+            let mut j = 0;
+            for (_, voice) in self.voices.iter() {
+                frame[j] = voice.render();
+                j += 1;
+            }
         }
     }
 }
 
-impl<T> Instrument<T> for SineInstrument {
+impl<T: Sample> Instrument<T> for SineInstrument {
     fn init(&mut self) {}
 
     fn note_on(&mut self, note: Note, velocity: u8) -> Result<(), NoteError> {
@@ -44,6 +49,8 @@ impl<T> Instrument<T> for SineInstrument {
         let osc = SineOscillator::new(freq);
 
         // Attempt to add a voice.
+        //
+        // .insert() will return an error if the voices map is full.
         self.voices
             .insert(note, osc)
             .map_err(|_| NoteError::NoVoices);
