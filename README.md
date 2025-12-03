@@ -28,6 +28,10 @@ The Rythm engine is an embedded-first audio engine in the form of a Rust crate t
   * SDMMC 4-bit interface
   * Stereo Audio Codec (2 in, 2 out)
 
+#### Notes
+
+ * Mini was originally designed with the BGA201 package, but the pitch was too fine for economic fabrication capabilities. Upgraded to BGA265 in revision 2 to fix routing constraints. 
+
 ### Card
 
 Everything from the Mini:
