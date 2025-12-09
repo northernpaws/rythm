@@ -39,6 +39,10 @@ impl SineOscillator {
     pub fn set_amplitude(&mut self, amplitude: f32) {
         self.amplitude = amplitude
     }
+
+    pub const fn get_sample_rate(&self) -> usize {
+        self.sample_rate
+    }
 }
 
 impl SineOscillator {

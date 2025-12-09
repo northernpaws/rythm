@@ -6,13 +6,22 @@ use rythm_engine::{
     theory::note::Note,
 };
 
+struct Voice {
+    /// The sine oscillator used to render the voice.
+    pub osc: SineOscillator,
+
+    /// A per-voice timebase for the oscillator index to allow each voice
+    /// to oscillate relative to when the trigger key was pressed.
+    pub time: usize,
+}
+
 /// Example instrument implementation that just plays a sine wave ocillator.
 pub struct SineInstrument {
     /// Configure the instrument with 8-voice polyphony.
     ///
     /// Since we're a basic sine synth, we use one
     /// sine wave oscillator as each synth voice.
-    voices: FnvIndexMap<Note, SineOscillator, 8>,
+    voices: FnvIndexMap<Note, Voice, 8>,
 }
 
 impl SineInstrument {
@@ -30,10 +39,13 @@ impl<T: Sample> AudioSource<T> for SineInstrument {
 
             // Loop through each active voice and sum it to the output buffer.
             let mut j = 0;
-            for (_, voice) in self.voices.iter() {
+            for (_, mut voice) in self.voices.iter() {
                 // TODO: need to feed proper sample time base
-                frame[j] = voice.render(i);
+                frame[j] = voice.render(voice.time);
                 j += 1;
+
+                // Make sure to increment the sine time index so the oscillator.. oscillates
+                voice.time = (voice.time + 1) & voice.osc.get_sample_rate();
             }
         }
     }
@@ -46,15 +58,18 @@ impl<T: Sample> Instrument<T> for SineInstrument {
         // Get the frequency of the note in hertz.
         let freq = note.frequency();
 
-        // Feed the note frequency to a sine oscillator.
-        // TODO: make sample rate configurable
-        let osc = SineOscillator::new(freq, 44100);
-
         // Attempt to add a voice.
         //
         // .insert() will return an error if the voices map is full.
         self.voices
-            .insert(note, osc)
+            .insert(
+                note,
+                Voice {
+                    // Feed the note frequency to a sine oscillator.
+                    osc: SineOscillator::new(freq, 44100),
+                    time: 0,
+                },
+            )
             .map_err(|_| NoteError::NoVoices)?;
 
         Ok(())
