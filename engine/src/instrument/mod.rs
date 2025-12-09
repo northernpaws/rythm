@@ -1,3 +1,5 @@
+use dasp_sample::FromSample;
+
 use crate::{
     audio::{AudioSource, Sample},
     theory::note::Note,
@@ -7,7 +9,7 @@ pub enum NoteError {
     NoVoices,
 }
 
-pub trait Instrument<T: Sample>: AudioSource<T> {
+pub trait Instrument<T: Sample + FromSample<f32>>: AudioSource<T> {
     /// Initializes the instrument for use.
     fn init(&mut self);
 
