@@ -1,40 +1,10 @@
 //! Module implementing various common oscillators for use in audio chains.
 
-use dasp_sample::{FromSample, Sample};
+use dasp_sample::{FromSample, Sample, ToSample};
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
 use crate::prelude::*;
-
-/// Defines the type of an oscillator.
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq)]
-pub enum OscillatorType {
-    /// A classic continuous tone at a specific frequency.
-    ///
-    /// Sine waves have a single carrier and no harmonics.
-    Sine,
-
-    /// A buzzy strong sound that's signature to supersaw synths.
-    ///
-    /// Saw waves contain both even and odd harmonics of
-    /// the fundamental frequency
-    Saw,
-
-    /// A fairly smooth tonal sound, close to a sine but
-    /// with some more character due to the added harmonics.
-    ///
-    /// Saw waves have odd harmonics, with the higher harmonics
-    /// rolling off much faster than in a square wave.
-    Triangle,
-
-    /// Very buzzy and strong sounding,
-    ///
-    /// Square waves have odd harmonics, with the higher harmonics
-    /// rolling off much slower than in a triangle wave.
-    Square,
-}
 
 /// Generates a sample of a sine wave given the provided
 /// time index, sample rate, frequency, and amplitude.
@@ -103,6 +73,54 @@ pub fn sample_square<S: Sample + FromSample<f32>>(
     }
 }
 
+/// Defines the type of an oscillator.
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "defmt", derive(defmt::Format))]
+#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq)]
+pub enum OscillatorType {
+    /// A classic continuous tone at a specific frequency.
+    ///
+    /// Sine waves have a single carrier and no harmonics.
+    Sine,
+
+    /// A buzzy strong sound that's signature to supersaw synths.
+    ///
+    /// Saw waves contain both even and odd harmonics of
+    /// the fundamental frequency
+    Saw,
+
+    /// A fairly smooth tonal sound, close to a sine but
+    /// with some more character due to the added harmonics.
+    ///
+    /// Saw waves have odd harmonics, with the higher harmonics
+    /// rolling off much faster than in a square wave.
+    Triangle,
+
+    /// Very buzzy and strong sounding,
+    ///
+    /// Square waves have odd harmonics, with the higher harmonics
+    /// rolling off much slower than in a triangle wave.
+    Square,
+}
+
+impl OscillatorType {
+    /// Samples an oscillator waveform depending on the selected type.
+    pub fn sample<S: Sample + FromSample<f32>>(
+        &self,
+        index: usize,
+        sample_rate: usize,
+        frequency: f32,
+        duty_cycle: f32,
+    ) -> S {
+        match self {
+            OscillatorType::Sine => sample_sine(index, sample_rate, frequency),
+            OscillatorType::Saw => sample_saw(index, sample_rate, frequency),
+            OscillatorType::Triangle => sample_triangle(index, sample_rate, frequency),
+            OscillatorType::Square => sample_square(index, sample_rate, frequency, duty_cycle),
+        }
+    }
+}
+
 /// Base trait for implementing oscillator methods with different
 /// functionality (i.e. lookup-table based vs runtime).
 pub trait Oscillator {
@@ -129,6 +147,7 @@ pub struct RuntimeOscillator {
 }
 
 impl RuntimeOscillator {
+    /// Construct a new runtime oscillator.
     pub fn new(osc_type: OscillatorType, sample_rate: usize, frequency: f32) -> Self {
         Self {
             osc_type,
@@ -140,28 +159,42 @@ impl RuntimeOscillator {
 }
 
 impl Oscillator for RuntimeOscillator {
+    /// Sample from the oscillator at the provided sample index.
     fn sample<S: Sample + FromSample<f32>>(&self, index: usize) -> S {
-        match self.osc_type {
-            OscillatorType::Sine => sample_sine(index, self.sample_rate, self.frequency),
-            OscillatorType::Saw => sample_saw(index, self.sample_rate, self.frequency),
-            OscillatorType::Triangle => sample_triangle(index, self.sample_rate, self.frequency),
-            OscillatorType::Square => {
-                sample_square(index, self.sample_rate, self.frequency, self.duty_cycle)
-            }
-        }
+        self.osc_type
+            .sample(index, self.sample_rate, self.frequency, self.duty_cycle)
     }
 }
 
-/*
-/// Provides aa oscillator that oscillates in a sine, saw, triangle,
+/// Provides an oscillator that oscillates in a sine, saw, triangle,
 /// or square wave by sampling from a pre-generated lookup table.
 ///
 /// TODO: should have some sort of support for a global lookup table
 ///  so that oscillators using the same parameters aren't needlessly
 ///  duplicating memory.
-pub struct LookupOscillator<const SAMPLE_RATE: usize, S: Sample> {
-    table: [S; SAMPLE_RATE * 2],
+// TODO: ideally the table sample type would be typed so the table could be
+//  cached in a different/lower sample type without requiring conversion.
+pub struct LookupOscillator<'a> {
+    /// The table is implemented as a reference to allow a shared oscillator
+    /// allocator to handle a pool of waveform lookup tables.
+    ///
+    /// This allows oscillators with the same parameters (type, freq, sample rate)
+    /// to share
+    table: &'a [f32],
 }
 
-impl<const SAMPLE_RATE: usize> Oscillator for LookupOscillator<SAMPLE_RATE> {}
-*/
+impl<'a> LookupOscillator<'a> {
+    /// Constructs a new lookup table-based oscillator from the provided table.
+    pub fn new_from_table(table: &'a [f32]) -> Self {
+        Self { table }
+    }
+}
+
+impl<'a> Oscillator for LookupOscillator<'a> {
+    /// Take a sample at the specified sample index from the oscillator.
+    fn sample<S: Sample + FromSample<f32>>(&self, index: usize) -> S {
+        // Modulo ensures that the sample index is wrapped
+        // within the sample rate of the oscillator table.
+        self.table[index % self.table.len()].to_sample()
+    }
+}

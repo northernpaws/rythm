@@ -1,14 +1,14 @@
 use heapless::index_map::FnvIndexMap;
 
 use rythm_engine::{
-    audio::{AudioSource, Buffer, Sample, oscillator::SineOscillator},
+    audio::{AudioSource, Buffer, Sample, oscillator::RuntimeOscillator},
     instrument::{Instrument, NoteError},
     theory::note::Note,
 };
 
 struct Voice {
     /// The sine oscillator used to render the voice.
-    pub osc: SineOscillator,
+    pub osc: RuntimeOscillator,
 
     /// A per-voice timebase for the oscillator index to allow each voice
     /// to oscillate relative to when the trigger key was pressed.
@@ -40,7 +40,6 @@ impl<T: Sample> AudioSource<T> for SineInstrument {
             // Loop through each active voice and sum it to the output buffer.
             let mut j = 0;
             for (_, mut voice) in self.voices.iter() {
-                // TODO: need to feed proper sample time base
                 frame[j] = voice.render(voice.time);
                 j += 1;
 
@@ -66,7 +65,11 @@ impl<T: Sample> Instrument<T> for SineInstrument {
                 note,
                 Voice {
                     // Feed the note frequency to a sine oscillator.
-                    osc: SineOscillator::new(freq, 44100),
+                    osc: RuntimeOscillator::new(
+                        rythm_engine::audio::oscillator::OscillatorType::Sine,
+                        freq,
+                        44100,
+                    ),
                     time: 0,
                 },
             )
