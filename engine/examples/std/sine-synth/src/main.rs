@@ -69,15 +69,9 @@ where
     // Create an instance of the example instrument.
     let mut inst = SineInstrument::new(sample_rate);
 
-    // TODO: This syntax is terrible.. need to rethink some of the typing
-    // inst.note_on(note::CFour, 255).unwrap();
-    // inst.note_on(note::DFour, 255).unwrap();
-    // inst.note_on(note::GFour, 255).unwrap();
-
     let err_fn = |err| eprintln!("an error occurred on stream: {err}");
 
     let time_at_start = std::time::Instant::now();
-    println!("Time at start: {time_at_start:?}");
     let mut step = 0;
 
     let stream = device.build_output_stream(

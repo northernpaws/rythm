@@ -60,18 +60,28 @@ impl SineInstrument {
 
 /// AudioSource provides the implementations for rendering
 /// the instrument's sounds out as audio.
+///
+/// Note that this implementation uses f32 as the frame type,
+/// which is equivalent to single-sample (aka mono) frames.
 impl AudioSource for SineInstrument {
     type Frame = f32;
 
+    /// Render out to a mono audio buffer.
     fn render(&mut self, buffer: &'_ mut [f32]) {
         for i in 0..buffer.len() {
             let mut sample = 0.0;
 
-            // Loop through each active voice and sum it to the output buffer.
+            // Loop through each active voice and sum them for the frame.
             for (_, voice) in self.voices.iter_mut() {
                 sample = sample + voice.next_sample::<f32>();
             }
 
+            // Note that the resulting buffer will be clipped on playback
+            // depending on the voice count and frequencies.
+            //
+            // It's on the receiving end of the rendered buffer to apply
+            // amplitude scaling to bring the audio samples down to an
+            // acceptable level for playback.
             buffer[i] = sample;
         }
     }
@@ -83,6 +93,9 @@ impl Instrument for SineInstrument {
 
     fn note_on(&mut self, note: Note, _velocity: u8) -> Result<(), NoteError> {
         // Get the frequency of the note in hertz.
+        //
+        // We use this as the frequency of our voice oscillator so
+        // that the oscillator plays in-key with the triggered note.
         let freq = note.frequency();
 
         println!(
@@ -95,12 +108,12 @@ impl Instrument for SineInstrument {
         // .insert() will return an error if the voices map is full.
         self.voices
             .insert(
-                note,
+                note, // This is the note we're adding a voice for
                 Voice::new(RuntimeOscillator::new(
                     OscillatorType::Sine,
                     self.sample_rate,
                     freq,
-                )),
+                )), // This is the oscillator for the voice.
             )
             .map_err(|_| NoteError::NoVoices)?;
 
