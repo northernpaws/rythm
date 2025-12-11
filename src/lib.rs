@@ -2,5 +2,3 @@
 
 #[cfg(all(not(feature = "std"), feature = "alloc"))]
 extern crate alloc;
-
-pub mod engine;

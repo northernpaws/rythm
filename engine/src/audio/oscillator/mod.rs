@@ -9,26 +9,32 @@
 //! oscillator pool allocator means the lookup tables can be shared across
 //! oscillators of the same parameters to avoid memory duplication.
 
+use core::array;
+
+use heapless::index_map::FnvIndexMap;
+
 use dasp::sample::{FromSample, Sample};
 
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
-use crate::prelude::*;
+use crate::{core::Frequency, prelude::*};
+
+const PI2: f32 = PI * 2.0;
 
 /// Generates a sample of a sine wave given the provided
 /// time index, sample rate, frequency, and amplitude.
 pub fn sample_sine<S: Sample + FromSample<f32>>(
     index: usize,
     sample_rate: usize,
-    frequency: f32,
+    frequency: Frequency,
 ) -> S {
     // Note that to_sample() handles the convertion of
     // the float-based waveform into other bit depth
-    // domains.
+    // domains - for f32 it's a no-op.
 
     let time = index as f32 / sample_rate as f32;
-    ((2.0 * PI * frequency * time).sin()).to_sample()
+    ((2.0 * PI * frequency.0 * time).sin()).to_sample()
 }
 
 /// Generates a sample of a saw wave given the provided
@@ -36,13 +42,13 @@ pub fn sample_sine<S: Sample + FromSample<f32>>(
 pub fn sample_saw<S: Sample + FromSample<f32>>(
     index: usize,
     sample_rate: usize,
-    frequency: f32,
+    frequency: Frequency,
 ) -> S {
     // Note that to_sample() handles the convertion of
     // the float-based waveform into other bit depth
-    // domains.
+    // domains - for f32 it's a no-op.
 
-    (1.0 - ((index as f32 / sample_rate as f32 * frequency) % 1.0) * 2.0).to_sample()
+    (1.0 - ((index as f32 / sample_rate as f32 * frequency.0) % 1.0) * 2.0).to_sample()
 }
 
 /// Generates a sample of a triangle wave given the
@@ -50,13 +56,13 @@ pub fn sample_saw<S: Sample + FromSample<f32>>(
 pub fn sample_triangle<S: Sample + FromSample<f32>>(
     index: usize,
     sample_rate: usize,
-    frequency: f32,
+    frequency: Frequency,
 ) -> S {
     // Note that to_sample() handles the convertion of
     // the float-based waveform into other bit depth
-    // domains.
+    // domains - for f32 it's a no-op.
 
-    let slope = (index as f32 / sample_rate as f32 * frequency) % 1.0 * 2.0;
+    let slope = (index as f32 / sample_rate as f32 * frequency.0) % 1.0 * 2.0;
     if slope < 1.0 {
         (-1.0 + slope * 2.0).to_sample()
     } else {
@@ -69,17 +75,53 @@ pub fn sample_triangle<S: Sample + FromSample<f32>>(
 pub fn sample_square<S: Sample + FromSample<f32>>(
     index: usize,
     sample_rate: usize,
-    frequency: f32,
-    duty_cycle: f32,
+    frequency: Frequency,
+    duty_cycle: DutyCycle,
 ) -> S {
     // Note that to_sample() handles the convertion of
     // the float-based waveform into other bit depth
-    // domains.
+    // domains - for f32 it's a no-op.
 
-    if (index as f32 / sample_rate as f32 * frequency) % 1.0 < duty_cycle {
+    if (index as f32 / sample_rate as f32 * frequency.0) % 1.0 < duty_cycle.to_fractional() {
         (1.0).to_sample()
     } else {
         (-1.0).to_sample()
+    }
+}
+
+/// Temporary solution to specifying an Eq compatile duty cycle.
+///
+/// Needs future work to allow a larger range of square wave cycles.
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq)]
+pub enum DutyCycle {
+    /// A duty cycle of 12.5%.
+    Eight,
+    /// A duty cycle of 25%.
+    Quarter,
+    /// A duty cycle of 33%.
+    Third,
+    /// A duty cycle of 50%.
+    Half,
+}
+
+impl DutyCycle {
+    /// Convert the duty cycle to an f32 fractional
+    /// we can feed to algorithms.
+    pub fn to_fractional(self) -> f32 {
+        match self {
+            DutyCycle::Eight => 0.125,
+            DutyCycle::Quarter => 0.25,
+            DutyCycle::Third => 0.33,
+            DutyCycle::Half => 0.5,
+        }
+    }
+}
+
+impl Default for DutyCycle {
+    /// The default cycle is half.
+    fn default() -> Self {
+        DutyCycle::Half
     }
 }
 
@@ -113,14 +155,22 @@ pub enum OscillatorType {
     Square,
 }
 
+/// An error returned from building a lookup table for an oscillator.
+#[cfg_attr(feature = "defmt", derive(defmt::Format))]
+#[derive(Debug)]
+pub enum TableError {
+    IncorrectSize { expected: usize, actual: usize },
+    TableFull,
+}
+
 impl OscillatorType {
     /// Samples an oscillator waveform depending on the selected type.
     pub fn sample<S: Sample + FromSample<f32>>(
         &self,
         index: usize,
         sample_rate: usize,
-        frequency: f32,
-        duty_cycle: f32,
+        frequency: Frequency,
+        duty_cycle: DutyCycle,
     ) -> S {
         match self {
             OscillatorType::Sine => sample_sine(index, sample_rate, frequency),
@@ -129,10 +179,54 @@ impl OscillatorType {
             OscillatorType::Square => sample_square(index, sample_rate, frequency, duty_cycle),
         }
     }
+
+    /// Fills a provided buffer with with a lookup table (also called a LUT)
+    /// with the oscillator waveform for the provided sampling rate.
+    pub fn build_table<S: Sample + FromSample<f32>>(
+        &self,
+        table: &'_ mut [S],
+        sample_rate: usize,
+        frequency: Frequency,
+        duty_cycle: DutyCycle,
+    ) -> Result<(), TableError> {
+        // For this lookup we expect the table size
+        // to match the provided sample rate.
+        if table.len() != sample_rate {
+            return Err(TableError::IncorrectSize {
+                expected: sample_rate,
+                actual: table.len(),
+            });
+        }
+
+        match self {
+            OscillatorType::Sine => {
+                let mult: f32 = frequency.0 * PI2 / sample_rate as f32;
+
+                // Note that we don't use the sample_sine function from above - there are a
+                // few math optimizations we can do for sine to speed up building the table.
+                for (index, row) in table.iter_mut().enumerate() {
+                    *row = ((index as f32 * mult).sin()).to_sample()
+                }
+            }
+
+            _ => {
+                for (index, row) in table.iter_mut().enumerate() {
+                    *row = self.sample(index, sample_rate, frequency, duty_cycle);
+                }
+            }
+        }
+
+        Ok(())
+    }
 }
 
 /// Base trait for implementing oscillator methods with different
 /// functionality (i.e. lookup-table based vs runtime).
+///
+/// Use this trait as a parameter typing to accept an oscillator
+/// regardless of what the backing implementation is.
+///
+/// See [`RuntimeOscillator`] and [`LookupOscillator`] for implementations.
 pub trait Oscillator<S: Sample + FromSample<f32>> {
     /// Samples the oscillator for the provided sample index.
     fn sample(&self, index: usize) -> S;
@@ -144,26 +238,29 @@ pub trait Oscillator<S: Sample + FromSample<f32>> {
 /// The advantage to using this implementation is that it requires
 /// significantly less memory as it has no lookup table, the downside
 /// is that it takes significantly more computation time per sample.
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "defmt", derive(defmt::Format))]
+#[derive(Debug, PartialEq)]
 pub struct RuntimeOscillator {
     /// Specifies the type of the oscillator, used to
     /// determine which algorithm to use at runtime.
     osc_type: OscillatorType,
 
     sample_rate: usize,
-    frequency: f32,
+    frequency: Frequency,
 
     /// Fractional duty cycle for square waves.
-    duty_cycle: f32,
+    duty_cycle: DutyCycle,
 }
 
 impl RuntimeOscillator {
     /// Construct a new runtime oscillator.
-    pub fn new(osc_type: OscillatorType, sample_rate: usize, frequency: f32) -> Self {
+    pub fn new(osc_type: OscillatorType, sample_rate: usize, frequency: Frequency) -> Self {
         Self {
             osc_type,
             sample_rate,
             frequency,
-            duty_cycle: 0.5,
+            duty_cycle: DutyCycle::Half,
         }
     }
 }
@@ -208,5 +305,63 @@ impl<'a, LookupSample: Sample + FromSample<f32>> Oscillator<LookupSample>
         // Modulo ensures that the sample index is wrapped
         // within the sample rate of the oscillator table.
         self.table[index % self.table.len()]
+    }
+}
+
+pub struct OscillatorAllocator<
+    LookupSample: Sample + FromSample<f32>,
+    const SAMPLE_RATE: usize,
+    const MAX_TABLES: usize,
+> {
+    /// A hashmap for allocating the lookup tables for oscillators.
+    ///
+    /// Keyed by the oscillator type, frequency, and duty cycle.
+    lookup: FnvIndexMap<
+        (OscillatorType, Frequency, DutyCycle),
+        RefCell<[LookupSample; SAMPLE_RATE]>,
+        MAX_TABLES,
+    >,
+}
+
+impl<LookupSample: Sample + FromSample<f32>, const SAMPLE_RATE: usize, const MAX_TABLES: usize>
+    OscillatorAllocator<LookupSample, SAMPLE_RATE, MAX_TABLES>
+{
+    /// Get an oscillator either using an existing waveform lookup table, or by generating a new one.
+
+    /// Tries to find an existing oscillator table with the specified
+    /// oscillator waveform, generating a new one if required.
+    pub fn lookup_or_allocate(
+        &mut self,
+        osc: OscillatorType,
+        frequency: Frequency,
+        duty_cycle: DutyCycle,
+    ) -> Result<RefCell<[LookupSample; SAMPLE_RATE]>, TableError> {
+        let table = match self
+            .lookup
+            .iter()
+            .find(|entry| entry.0.0 == osc && entry.0.1 == frequency && entry.0.2 == duty_cycle)
+        {
+            Some(table) => RefCell::clone(table.1),
+            None => {
+                // If there was no cached lookup table, then we need to generate it.
+
+                // TODO: this will create the table on stack which will be too big for most MCUs
+                let mut table: [LookupSample; SAMPLE_RATE] = array::from_fn(|_| 0.0.to_sample());
+                osc.build_table(&mut table, SAMPLE_RATE, frequency, duty_cycle)?;
+
+                let cell = RefCell::new(table);
+
+                // Clone the ref cell so we can return it after insert.
+                let clone = RefCell::clone(&cell);
+
+                self.lookup
+                    .insert((osc, frequency, duty_cycle), cell)
+                    .map_err(|_| TableError::TableFull)?;
+
+                clone
+            }
+        };
+
+        Ok(table)
     }
 }

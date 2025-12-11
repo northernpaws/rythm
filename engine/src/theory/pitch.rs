@@ -121,7 +121,7 @@ pub enum Pitch {
 
 impl Pitch {
     pub fn base_frequency(&self) -> Frequency {
-        match self {
+        Frequency(match self {
             Pitch::C => 16.35,
             Pitch::DFlat => 17.32,
             Pitch::D => 18.35,
@@ -134,7 +134,7 @@ impl Pitch {
             Pitch::A => 27.50,
             Pitch::BFlat => 29.14,
             Pitch::B => 30.87,
-        }
+        })
     }
 }
 

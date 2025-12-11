@@ -3,7 +3,10 @@ use cpal::{
     traits::{DeviceTrait, HostTrait, StreamTrait},
 };
 
-use rythm_engine::audio::oscillator::{self, Oscillator};
+use rythm_engine::{
+    audio::oscillator::{self, Oscillator},
+    core::Frequency,
+};
 
 fn main() -> anyhow::Result<()> {
     // Retrieve the default audio engine host for the target compilation platform.
@@ -58,8 +61,11 @@ where
     let channels = config.channels as usize;
 
     // Create a sine oscillator with a frequency of 261.63 (middle C)
-    let osc =
-        oscillator::RuntimeOscillator::new(oscillator::OscillatorType::Sine, sample_rate, 261.63);
+    let osc = oscillator::RuntimeOscillator::new(
+        oscillator::OscillatorType::Sine,
+        sample_rate,
+        Frequency::from_hertz(261.63),
+    );
 
     // Clock to track which sample we're currently rendering from the oscillator.
     let mut sample_clock = 0;
@@ -82,6 +88,7 @@ where
         err_fn,
         None,
     )?;
+
     stream.play()?;
 
     std::thread::sleep(std::time::Duration::from_millis(1000));

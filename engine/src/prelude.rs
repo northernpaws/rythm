@@ -20,6 +20,7 @@ pub use self::core::default::{self, Default};
 pub use self::core::f32::consts::PI;
 pub use self::core::fmt::{self, Debug, Display};
 pub use self::core::future::{self, Future};
+pub use self::core::hash::{Hash, Hasher};
 pub use self::core::marker::{self, PhantomData, Send};
 pub use self::core::ops::{Add, AddAssign, Sub, SubAssign};
 pub use self::core::option::{self, Option};

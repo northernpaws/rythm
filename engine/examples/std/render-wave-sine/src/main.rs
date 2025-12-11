@@ -1,4 +1,7 @@
-use rythm_engine::audio::oscillator::{self, Oscillator};
+use rythm_engine::{
+    audio::oscillator::{self, Oscillator},
+    core::Frequency,
+};
 
 fn main() {
     // Set the specification for the wave file we're going to create.
@@ -16,7 +19,7 @@ fn main() {
     let osc = oscillator::RuntimeOscillator::new(
         oscillator::OscillatorType::Triangle,
         spec.sample_rate as usize,
-        261.63,
+        Frequency::from_hertz(261.63),
     );
 
     let duration_secs = 2.0; // 2 seconds
