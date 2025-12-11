@@ -69,7 +69,7 @@ impl AudioSource for SineInstrument {
 
             // Loop through each active voice and sum it to the output buffer.
             for (_, voice) in self.voices.iter_mut() {
-                sample = Sample::add_amp(sample, voice.next_sample());
+                sample = sample + voice.next_sample::<f32>();
             }
 
             buffer[i] = sample;
