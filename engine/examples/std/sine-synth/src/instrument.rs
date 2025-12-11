@@ -72,9 +72,7 @@ impl AudioSource for SineInstrument {
                 sample = Sample::add_amp(sample, voice.next_sample());
             }
 
-            // The divition by the active voices scaled back
-            // the resulting sample to prevent clipping.
-            buffer[i] = sample / self.voices.len() as f32;
+            buffer[i] = sample;
         }
     }
 }

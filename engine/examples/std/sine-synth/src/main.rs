@@ -120,7 +120,7 @@ where
 
                 // Write the sample to the left, and if present, the right channel.
                 for sample in frame.iter_mut() {
-                    *sample = f[0].to_sample();
+                    *sample = f[0].scale_amp(0.25).to_sample();
                 }
             }
         },
