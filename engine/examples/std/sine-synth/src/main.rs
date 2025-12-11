@@ -120,6 +120,8 @@ where
 
                 // Write the sample to the left, and if present, the right channel.
                 for sample in frame.iter_mut() {
+                    // Note that we scale the sample down to avoid
+                    // clipping when introducing other voices.
                     *sample = f[0].scale_amp(0.25).to_sample();
                 }
             }
