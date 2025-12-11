@@ -1,15 +1,20 @@
+use std::{array, fmt::Debug};
+
 use heapless::index_map::FnvIndexMap;
 
 use rythm_engine::{
     audio::{
-        AudioSource, Buffer, Frame, FromSample, Sample,
+        AudioSource, Frame, FromSample, Mono, Sample, frame,
         oscillator::{Oscillator, RuntimeOscillator},
     },
-    core::Frequency,
     instrument::{Instrument, NoteError},
     theory::note::Note,
 };
 
+/// A voice is one of multiple simultaneous sounds in a polyphonic synthesizer.
+///
+/// When a key/note on the synth is pressed it allocates a "voice" for the sound
+/// that key makes. In this example, the sound of the voice is a sine oscillator.
 struct Voice {
     /// The sine oscillator used to render the voice.
     pub osc: RuntimeOscillator,
@@ -24,18 +29,21 @@ impl Voice {
         Self { osc, time: 0 }
     }
 
+    /// Takes the next sample from the oscillator and increments the voice time base.
     fn next_sample<S: Sample + FromSample<f32>>(&mut self) -> S {
         let sample = self.osc.sample(self.time);
 
         // Make sure to increment the sine time index so the oscillator.. oscillates
-        self.time = (self.time + 1) & self.osc.get_sample_rate();
+        self.time = (self.time + 1) % self.osc.get_sample_rate();
 
         sample
     }
 }
 
-/// Example instrument implementation that just plays a sine wave ocillator.
+/// Example instrument implementation with 8 polyphonic sine oscillator voices.
 pub struct SineInstrument {
+    sample_rate: usize,
+
     /// Configure the instrument with 8-voice polyphony.
     ///
     /// Since we're a basic sine synth, we use one
@@ -44,29 +52,35 @@ pub struct SineInstrument {
 }
 
 impl SineInstrument {
-    pub fn new() -> Self {
+    pub fn new(sample_rate: usize) -> Self {
         Self {
+            sample_rate,
             voices: FnvIndexMap::new(),
         }
     }
 }
 
-impl<F: Frame> AudioSource<F> for SineInstrument {
-    fn render(&mut self, buffer: &'_ mut Buffer<F>) {
+/// AudioSource provides the implementations for rendering
+/// the instrument's sounds out as audio.
+impl AudioSource for SineInstrument {
+    type Frame = f32;
+
+    fn render(&mut self, buffer: &'_ mut [f32]) {
         for i in 0..buffer.len() {
-            let mut frame: [f32; 8] = [0_f32; 8];
+            let mut sample = 0.0;
 
             // Loop through each active voice and sum it to the output buffer.
-            let mut j = 0;
             for (_, voice) in self.voices.iter_mut() {
-                frame[j] = voice.next_sample();
-                j += 1;
+                sample = Sample::add_amp(sample, voice.next_sample());
             }
+
+            buffer[i] = sample;
         }
     }
 }
 
-impl<F: Frame> Instrument<F> for SineInstrument {
+/// Provides the instrument-related control methods.
+impl Instrument for SineInstrument {
     fn init(&mut self) {}
 
     fn note_on(&mut self, note: Note, _velocity: u8) -> Result<(), NoteError> {
@@ -81,7 +95,7 @@ impl<F: Frame> Instrument<F> for SineInstrument {
                 note,
                 Voice::new(RuntimeOscillator::new(
                     rythm_engine::audio::oscillator::OscillatorType::Sine,
-                    44100,
+                    self.sample_rate,
                     freq,
                 )),
             )

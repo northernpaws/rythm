@@ -2,11 +2,12 @@ use dasp::Frame;
 
 use crate::{audio::AudioSource, theory::note::Note};
 
+#[derive(Debug)]
 pub enum NoteError {
     NoVoices,
 }
 
-pub trait Instrument<F: Frame>: AudioSource<F> {
+pub trait Instrument: AudioSource {
     /// Initializes the instrument for use.
     fn init(&mut self);
 
