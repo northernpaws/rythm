@@ -2,3 +2,8 @@
 
 #[cfg(all(not(feature = "std"), feature = "alloc"))]
 extern crate alloc;
+
+/// Re-export the engine crate under the root crate.
+pub mod engine {
+    pub use rythm_engine::*;
+}

@@ -3,7 +3,7 @@ use cpal::{
     traits::{DeviceTrait, HostTrait, StreamTrait},
 };
 use rythm_engine::{
-    audio::{AudioSource, Frame, Mono, slice},
+    audio::{AudioSource, Frame},
     instrument::Instrument,
     music::note,
 };

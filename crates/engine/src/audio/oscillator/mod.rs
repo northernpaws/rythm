@@ -37,6 +37,7 @@ pub fn sample_sine<S: Sample + FromSample<f32>>(
     // domains - for f32 it's a no-op.
 
     let time = index as f32 / sample_rate as f32;
+    // TODO: replace 2.0*PI with TAU?
     ((2.0 * PI * frequency.0 * time).sin()).to_sample()
 }
 

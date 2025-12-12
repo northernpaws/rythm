@@ -5,9 +5,12 @@ edition = "2024"
 
 
 [dependencies]
-measurements = "0.11.1"
+rythm-engine = { path = "crates/engine" }
 
 [features]
 default = []
-std = []
-alloc = []
+std = ["rythm-engine/std"]
+alloc = ["rythm-engine/alloc"]
+defmt = ["rythm-engine/defmt"]
+log = ["rythm-engine/log"]
+serde = ["rythm-engine/serde"]
