@@ -39,10 +39,10 @@ See the kits section below for more types of carrier boards that are designed as
 
 ### Mini
 
-| ![Front](assets/images/mini/front.png) | ![Back](assets/images/mini/back.png) |
-|:---:|:---:|
+| ![Layout](assets/images/mini/layout.png)  | ![Front](assets/images/mini/front.png) | ![Back](assets/images/mini/back.png) |
+|:---:|:---:|:---:|
 
-![Layout](assets/images/mini/layout.png) 
+
 
   * 480MHz ARM Cortex-M processor
   * 64MB of SDRAM
