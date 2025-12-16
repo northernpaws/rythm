@@ -100,6 +100,7 @@ The Card is designed for audio applications that need significantly more memory,
   * [ ] Research the best CV circuits we can use to support a large range of biasing and voltages (i.e. -12v to +12v).
   * [ ] After SDRAM routing, can we break the parallel interface out to a B2B connector? Could be useful for driving displays, or memory expension with additional chips.
   * [ ] Aim to break out one of the QSPI interfaces so carriers can add additional flash. One ideas is for Card carriers to have their own carrier-specific flash that the module can load when attached, so programs don't need to be reflashed if sharing a module across carriers.
+  * [ ] Uses DF40TC for higher range of hight offset. Maximum of 7mm allows mounting the module over most 3.5mm and USB sockets. DF40TC(3.0)-50DP-0.4V(51) as base, with: DF40TC-##DS-0.4V(51)   = 4.5 (min), DF40TC(4.0)-##DS-0.4V(51)  = 7.0mm (max).
 
 # Carriers
 
