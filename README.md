@@ -109,17 +109,21 @@ Some of the planned carriers are:
   * "Discovery" line that breaks the module's IO's out to standard breadboard compatible pin headers. Includes a USB-C port for device and host mode, contains an ARM Cortex programming header keyed for an IDC cable, and possibly an SD card. Includes the required electrolytic capacitors for the integrated headphone driver on the modules.
   * "Proto" line that has a protoboard layout with a socket for the module in the center, making it easy to not only prototype more stable circuits directly with the module, but also to unsocket and swap the module between multiple proto boards so you don't need to buy several for different projects.
 
+And a couple other ideas that need to be planned out:
+  * A carrier that breaks out the audio and MIDI lines as 3.5mm sockets, and IO on [Molex PicoBlade connectors](https://www.google.com/search?client=safari&rls=en&q=picoblade+connector&ie=UTF-8&oe=UTF-8) for rapid modular prototying (maybe use the "Discovery" name for this one instead?). 
+
 # Kits
 
 Rythm's hardware ecosystem will also include several soldering kits that are currently in various stages of development:
  * **Rythm Mini**
-   * Guitar/Effects pedal kit.
-   * Mini synth kit.
-   * Mini step sequencer kit.
+   * **Guitar/Effects Pedal Kit** - PCB with several connectors for knobs and foot switches, includes some knob and footswitch options, a Mini module, and 
+   * **Mini Synth Kit** - A carrier similar to the Korg Volca or Behringer Pro series with a capacitive keyboard, several knobs and buttons, and 3.5mm MIDI minijack. Comes with a few printed faceplates and a 3D printed case. Carrier sockets could be solderable in kit form.
+   * **Mini Step Sequencer Kit** - A small step or drum sequencer design, similar to the Roland AIRA Compact or Elektron Model lineup. Buttons and knobs solderable for kit form.
+   * **Mini Groovebox Kit** - Something similar to an Elektron Model or Novation Circuit series device. A 4x8 velocity pad grid (velostat?), several knobs, and some menu buttons.
  * **Rythm Card**
-   * Eurorack module kit.
-   * Pro synth kit.
-   * Pro step sequencer kit.
+   * **Eurorack Module Kit** - A 4-8 HP (to be determined) Eurorack carrier sporting all the Card CV inputs and outputs as standard 3.5mm sockets, USB, 3.5mm MIDI Minijack and an SD card.
+   * **Pro Synth Kit** - Similar to the Midi Synth Kit, but also sporting a display, more control, and 3.5mm CV sockets.
+   * **Pro Step Sequencer Kit** - Something similar to an Elektron Digitakt, SEQTRAK, or Korg SQ-1 with 16-step buttons, a display, and some knobs.
 
 Each of these kits will come with a board support package via a feature flag in the Rust crate. These board support packages will come with all the scaffolding necessary to quickly build a project around the boards, as well as several example projects. 
 
