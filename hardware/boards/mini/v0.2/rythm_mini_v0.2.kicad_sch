@@ -97328,6 +97328,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C424647"
+			(at 367.03 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "5fa5ba01-25fb-4e9c-9d7d-21614b7970ac")
 		)
@@ -97775,6 +97784,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C25744"
+			(at 377.19 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "77540a92-13a9-4b35-b594-a3623b8f181c")
 		)
@@ -97809,7 +97827,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "Crystal"
+		(property "Value" "32.768kHz"
 			(at 284.48 269.2399 90)
 			(effects
 				(font
@@ -97924,6 +97942,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C25744"
+			(at 403.86 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "90b8fe6d-9efd-4cb4-993f-0b0382defb1b")
 		)
@@ -97994,6 +98021,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C15195"
+			(at 201.93 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "82e9fb8d-25cc-46b8-b864-33c7afa895a6")
 		)
@@ -98056,6 +98092,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 368.3 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C25744"
 			(at 368.3 27.94 0)
 			(effects
 				(font
@@ -98267,6 +98312,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" ""
+			(at 162.56 97.79 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "c2352519-c239-4b75-8cfe-8b83989df393")
 		)
@@ -98404,6 +98458,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C1525"
+			(at 149.86 29.21 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "afe97d05-1f15-4449-aabb-6ccb95479f1c")
 		)
@@ -98464,6 +98527,15 @@
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 306.07 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C52923"
+			(at 306.07 218.44 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -98533,6 +98605,15 @@
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 233.68 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C23733"
+			(at 233.68 55.88 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -98746,6 +98827,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C1525"
+			(at 177.8 152.4 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "b7754b84-d714-4f31-a88e-a8d64153937b")
 		)
@@ -98943,6 +99033,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C52923"
+			(at 306.07 185.42 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "df2ad9d8-b665-4192-b440-9ba296e85c93")
 		)
@@ -99005,6 +99104,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 302.26 233.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C23733"
 			(at 302.26 233.68 0)
 			(effects
 				(font
@@ -99214,6 +99322,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C23733"
+			(at 247.65 233.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "74226bc8-8d8d-4845-bac8-a375a84c13db")
 		)
@@ -99283,6 +99400,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C1525"
+			(at 123.19 29.21 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "935385e1-aeb2-4b9f-b823-9db1b20244c0")
 		)
@@ -99343,6 +99469,15 @@
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 255.27 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C52923"
+			(at 255.27 218.44 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -99419,6 +99554,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C1525"
+			(at 176.53 29.21 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "9ed96c36-43fb-40e3-a28e-d901be8817b5")
 		)
@@ -99488,6 +99632,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C1525"
+			(at 172.72 29.21 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "29601eed-661a-48ea-9b9e-1cca350b67dd")
 		)
@@ -99548,6 +99701,15 @@
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 306.07 190.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C52923"
+			(at 306.07 190.5 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -99624,6 +99786,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C25900"
+			(at 132.08 229.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "54da45ee-3c16-4705-b714-a25bc628446b")
 		)
@@ -99685,6 +99856,15 @@
 		)
 		(property "Description" "Resistor"
 			(at 280.67 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C25091"
+			(at 280.67 121.92 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -99757,6 +99937,15 @@
 		)
 		(property "Description" "STMicroelectronics Arm Cortex-M7 MCU, 128KB flash, 1024KB RAM, 480 MHz, 1.62-3.6V, 172 GPIO, TFBGA240"
 			(at 27.94 196.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C405932"
+			(at 27.94 193.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -100714,6 +100903,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C405932"
+			(at 78.74 231.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "C7"
 			(uuid "642d7269-a1e6-464f-b818-ba359f101ddc")
 		)
@@ -101656,6 +101854,15 @@
 		)
 		(property "Description" "STMicroelectronics Arm Cortex-M7 MCU, 128KB flash, 1024KB RAM, 480 MHz, 1.62-3.6V, 172 GPIO, TFBGA240"
 			(at 78.74 186.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C405932"
+			(at 78.74 182.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -102611,6 +102818,15 @@
 		)
 		(property "Description" "STMicroelectronics Arm Cortex-M7 MCU, 128KB flash, 1024KB RAM, 480 MHz, 1.62-3.6V, 172 GPIO, TFBGA240"
 			(at 27.94 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C405932"
+			(at 27.94 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -103576,6 +103792,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C405932"
+			(at 78.74 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "C7"
 			(uuid "642d7269-a1e6-464f-b818-ba359f101ddf")
 		)
@@ -104532,6 +104757,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C405932"
+			(at 78.74 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "C7"
 			(uuid "642d7269-a1e6-464f-b818-ba359f101de0")
 		)
@@ -105481,6 +105715,15 @@
 		)
 		(property "Description" "STMicroelectronics Arm Cortex-M7 MCU, 128KB flash, 1024KB RAM, 480 MHz, 1.62-3.6V, 172 GPIO, TFBGA240"
 			(at 27.94 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C405932"
+			(at 27.94 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -106453,6 +106696,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C405932"
+			(at 27.94 241.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "C7"
 			(uuid "642d7269-a1e6-464f-b818-ba359f101de2")
 		)
@@ -107410,6 +107662,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C405932"
+			(at 78.74 269.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "C7"
 			(uuid "642d7269-a1e6-464f-b818-ba359f101de3")
 		)
@@ -108359,6 +108620,15 @@
 		)
 		(property "Description" "STMicroelectronics Arm Cortex-M7 MCU, 128KB flash, 1024KB RAM, 480 MHz, 1.62-3.6V, 172 GPIO, TFBGA240"
 			(at 78.74 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C405932"
+			(at 78.74 134.62 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -109338,6 +109608,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C405932"
+			(at 27.94 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "C7"
 			(uuid "642d7269-a1e6-464f-b818-ba359f101de5")
 		)
@@ -110294,6 +110573,15 @@
 		)
 		(property "Description" "STMicroelectronics Arm Cortex-M7 MCU, 128KB flash, 1024KB RAM, 480 MHz, 1.62-3.6V, 172 GPIO, TFBGA240"
 			(at 193.04 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C405932"
+			(at 193.04 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -111322,6 +111610,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C23733"
+			(at 271.78 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "f8deb5df-d60e-44c3-8839-4cb01d9c9991")
 		)
@@ -111449,6 +111746,15 @@
 		)
 		(property "Description" "Unpolarized capacitor"
 			(at 157.48 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" ""
+			(at 157.48 97.79 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -111592,6 +111898,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C1525"
+			(at 130.81 29.21 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "cf5acc20-93f1-47f1-86f3-a4ab65bb42de")
 		)
@@ -111727,6 +112042,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C1525"
+			(at 146.05 29.21 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "aee89696-a33e-44fc-90b3-07ed57fdd70d")
 		)
@@ -111789,6 +112113,15 @@
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 157.48 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C1525"
+			(at 157.48 29.21 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -111866,6 +112199,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C23733"
+			(at 262.89 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "532f2e5f-c3a3-4917-ba9d-06c928b3317b")
 		)
@@ -111928,6 +112270,15 @@
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 134.62 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C1525"
+			(at 134.62 29.21 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -112442,6 +112793,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C23733"
+			(at 226.06 55.88 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "6e6aeea1-936b-4b27-b850-82dc1c27fdd0")
 		)
@@ -112511,6 +112871,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C23733"
+			(at 229.87 55.88 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "daa975f6-7b90-4211-9b92-015a927e64b1")
 		)
@@ -112573,6 +112942,15 @@
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 234.95 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C1525"
+			(at 234.95 87.63 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -112650,6 +113028,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C25744"
+			(at 386.08 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "daabef99-1f05-46ac-b836-992cc58f6e6e")
 		)
@@ -112710,6 +113097,15 @@
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 306.07 213.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C52923"
+			(at 306.07 213.36 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -112824,7 +113220,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0402_1005Metric"
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 120.65 128.27 0)
 			(effects
 				(font
@@ -112852,6 +113248,15 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
+			(at 120.65 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C89811"
 			(at 120.65 128.27 0)
 			(effects
 				(font
@@ -112929,6 +113334,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C1525"
+			(at 165.1 29.21 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "d00492ae-0111-4b39-8d77-1f35119ede31")
 		)
@@ -112991,6 +113405,15 @@
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 168.91 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C1525"
+			(at 168.91 29.21 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -113184,6 +113607,15 @@
 					(size 1.27 1.27)
 				)
 				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C424647"
+			(at 367.03 198.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 				(hide yes)
 			)
 		)
@@ -113566,6 +113998,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C1525"
+			(at 127 29.21 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "15a34442-8f9f-4138-b09c-87fa73af2f6a")
 		)
@@ -113635,6 +114076,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C1525"
+			(at 142.24 29.21 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "931c9894-6e0b-4065-968f-62fecf720ef3")
 		)
@@ -113696,6 +114146,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 162.56 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C25744"
 			(at 162.56 55.88 0)
 			(effects
 				(font
@@ -113774,6 +114233,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C1525"
+			(at 128.27 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "5d4e8300-2b67-4bc9-81a2-a202565973e7")
 		)
@@ -113836,6 +114304,15 @@
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 162.56 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C15525"
+			(at 162.56 152.4 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -114416,6 +114893,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C15525"
+			(at 158.75 152.4 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "189900d7-09f9-46fc-93fc-a8585eefbfb0")
 		)
@@ -114616,6 +115102,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C23733"
+			(at 245.11 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "b82315e6-06f0-4ac8-98fc-a91023b8c86f")
 		)
@@ -114676,6 +115171,15 @@
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 255.27 203.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C52923"
+			(at 255.27 203.2 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -114745,6 +115249,15 @@
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 180.34 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C1525"
+			(at 180.34 29.21 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -114886,6 +115399,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C52923"
+			(at 255.27 208.28 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "7dea86eb-6437-432a-8c92-403d9584ffad")
 		)
@@ -114948,6 +115470,15 @@
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 161.29 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C1525"
+			(at 161.29 29.21 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -115089,6 +115620,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C1525"
+			(at 138.43 29.21 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "9147f304-64c5-48d5-8739-a208568c231c")
 		)
@@ -115151,6 +115691,15 @@
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 166.37 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C1525"
+			(at 166.37 152.4 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -115286,6 +115835,15 @@
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 189.23 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C1525"
+			(at 189.23 152.4 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -115598,6 +116156,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C25744"
+			(at 394.97 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "1349b404-c57d-48e6-a178-ffb8fab17364")
 		)
@@ -115725,6 +116292,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 137.16 229.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C25900"
 			(at 137.16 229.87 0)
 			(effects
 				(font
@@ -116001,6 +116577,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C1525"
+			(at 173.99 152.4 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "11bbb2a4-6945-4331-b929-06be3203fabc")
 		)
@@ -116063,6 +116648,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 214.63 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C52923"
 			(at 214.63 29.21 0)
 			(effects
 				(font
@@ -116207,6 +116801,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C25879"
+			(at 250.19 223.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "4a842010-ddb8-44c6-9e22-04b407102dce")
 		)
@@ -116269,6 +116872,15 @@
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 181.61 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C1525"
+			(at 181.61 152.4 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -116415,6 +117027,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C1525"
+			(at 153.67 29.21 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "c636b11d-4fc6-4ead-afea-3fa665605ee2")
 		)
@@ -116552,6 +117173,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C478164"
+			(at 265.43 40.64 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "3"
 			(uuid "67a53712-e76d-4196-90f1-fb4f055977d7")
 		)
@@ -116624,6 +117254,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C1525"
+			(at 185.42 152.4 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "802e0115-7ce5-4d16-88ec-b08912e17e51")
 		)
@@ -116686,6 +117325,15 @@
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 231.14 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C52923"
+			(at 231.14 87.63 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -116899,6 +117547,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C52923"
+			(at 237.49 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "38a5a459-d8ca-40ae-aec8-85b8b718967d")
 		)
@@ -116961,6 +117618,15 @@
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 170.18 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C1525"
+			(at 170.18 152.4 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -117345,7 +118011,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0402_1005Metric"
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 120.65 105.41 0)
 			(effects
 				(font
@@ -117373,6 +118039,15 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
+			(at 120.65 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C2286"
 			(at 120.65 105.41 0)
 			(effects
 				(font
@@ -117443,6 +118118,15 @@
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 119.38 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C15525"
+			(at 119.38 29.21 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -117585,6 +118269,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C1525"
+			(at 184.15 29.21 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "2ed077b2-7e64-42fe-97bc-9a863eeaf53f")
 		)
@@ -117711,6 +118404,15 @@
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 255.27 213.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C52923"
+			(at 255.27 213.36 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -118008,6 +118710,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C25879"
+			(at 247.65 223.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "6b26054a-cb71-4a6d-9a49-aa4dbbe6d793")
 		)
@@ -118049,7 +118760,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0402_1005Metric"
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 120.65 116.84 0)
 			(effects
 				(font
@@ -118077,6 +118788,15 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
+			(at 120.65 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C89811"
 			(at 120.65 116.84 0)
 			(effects
 				(font
@@ -118224,6 +118944,15 @@
 					(size 1.27 1.27)
 				)
 				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C1351289"
+			(at 194.31 199.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 				(hide yes)
 			)
 		)
@@ -118445,6 +119174,15 @@
 		)
 		(property "Description" "Unpolarized capacitor"
 			(at 167.64 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" ""
+			(at 167.64 97.79 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -118920,6 +119658,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLC" "C25744"
+			(at 153.67 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "11345a9e-75bd-475c-94c0-2e7acb2246b2")
 		)
@@ -118982,6 +119729,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 254 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLC" "C23733"
 			(at 254 157.48 0)
 			(effects
 				(font
