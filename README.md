@@ -9,6 +9,7 @@ The ecosystem is comprised of:
    * Various composable interfaces for quickly prototyping new instruments.
    * Drivers for common audio codecs, SDRAM, etc.
    * Windows, MacOS, and Linux support for developing audio chains before flashing to hardware.
+   * Future web interface for synth design, with WebUSB for direct device flashing.
  * Two base hardware modules designed for the engine:
    * **Mini** - small footprint with audio processing.
    * **Card** - larger footprint with audio processing, CV and sync.
@@ -64,7 +65,7 @@ Also see furthur in the README for kits that are designed as self-assembled sold
   * SDMMC 4-bit interface
   * 1 Hardware MIDI Endpoint (RX and TX)
 
-The Mini is a 20mm x 40mm module, designed to have a similar footprint to an Arduino Nano to make it easy to fit in a variaty of small audio and music devices.
+The Mini is a 20mm x 40mm module, designed to have a similar footprint to an Arduino Nano to make it easy to fit in a variaty of small audio and music devices. The Mini also has a breadboard-compatible carrier that exposes 2 columns of breadboard pins on either side of the carrier on standard 5-5 breadboard column layouts.
 
 The mini is ideal for applications that don't need a large amount of audio RAM and need to fit in a small footprint - such as a guitar/effects pedal, Altoids tin, or 2HP Eurorack modules similar to [Erica Synths' Pico series](https://www.ericasynths.lv/shop/eurorack-modules/by-series/pico-series/).
 
@@ -157,7 +158,9 @@ It would not have been possible for me to spend the time or funds on making this
  * Freyja
  * [Mary Guillemard (@marysaka)](https://github.com/marysaka)
 
-If you would like to support this project, see either my [GitHub Sponsors page](https://github.com/sponsors/northernpaws) or [Patreon](https://www.patreon.com/cw/Northernpaws). Support includes access to exclusive Discord channels with sneak peaks and design discussions.
+If you would like to support this project, see either my [GitHub Sponsors page](https://github.com/sponsors/northernpaws) or [Patreon](https://www.patreon.com/cw/Northernpaws).
+
+Support includes access to exclusive Discord channels with sneak peaks and design discussions.
 
 # License
 
