@@ -94362,7 +94362,7 @@
 		)
 		(uuid "12cfc8ac-5f2e-4443-a2b9-3a7bdd0aa432")
 	)
-	(label "3v3_GND"
+	(label "VIN_GND"
 		(at 383.54 233.68 0)
 		(effects
 			(font
@@ -94442,7 +94442,7 @@
 		)
 		(uuid "1b0b70fc-811b-49cf-9862-08b9cb1a11d5")
 	)
-	(label "3v3+"
+	(label "VIN"
 		(at 255.27 33.02 180)
 		(effects
 			(font
@@ -95006,7 +95006,7 @@
 		)
 		(uuid "49f45275-8473-47f6-9942-7ec2009b6fed")
 	)
-	(label "3v3+"
+	(label "VIN"
 		(at 383.54 231.14 0)
 		(effects
 			(font
@@ -96953,7 +96953,7 @@
 		)
 		(uuid "f611b885-be68-4ac9-abde-ac9d78cad827")
 	)
-	(label "3v3_GND"
+	(label "VIN_GND"
 		(at 255.27 43.18 180)
 		(effects
 			(font
@@ -118154,7 +118154,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
+		(property "Footprint" "LED_SMD:LED_0402_1005Metric"
 			(at 120.65 105.41 0)
 			(effects
 				(font
