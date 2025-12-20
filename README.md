@@ -4,17 +4,19 @@
 
 Rythm is an embedded-first Rust ecosystem for building music and audio processing devices, with a primary focus on ARM Cortex MCUs as the end-target.
 
-The Rythm ecosystem is comprised of:
+The ecosystem is comprised of:
  * A Rust crate providing a DSP and audio engine designed for embedded devices (heapless by default, small footprint).
    * Various composable interfaces for quickly prototyping new instruments.
    * Drivers for common audio codecs, SDRAM, etc.
    * Windows, MacOS, and Linux support for developing audio chains before flashing to hardware.
  * Two base hardware modules designed for the engine:
-   * **Rythm Mini** - small footprint with audio processing.
-   * **Rythm Card** - larger footprint with audio processing, CV and sync.
- * Several module "host" boards:
+   * **Mini** - small footprint with audio processing.
+   * **Card** - larger footprint with audio processing, CV and sync.
+ * Several module "carrier" boards:
    * Breadboard-compatible carrier with headers.
    * Protoboard-style carrier with an integrated module.
+ * Potentially some future soldering kits.
+ * A Rust BSP (Board cupport package) crate that makes it easy to get started with any modules or boards from the ecosystem.
 
 ## TODO
 
@@ -24,9 +26,9 @@ The Rythm ecosystem is comprised of:
 
 # Engine
 
-`rythm-engine` is an embedded-first DSP and audio engine crate that can be quickly integrated into embedded projects as a dependency, or used standalone with the std library for audio application.
+`rythm-engine` is a set of embedded-first DSP and audio engine crates that can be quickly integrated into embedded projects as a dependency, or used standalone with the std library for audio application.
 
-`rythm-engine` is designed to be as modular as possible, so i.e. if you just need a couple oscillators, you can use the oscillator module without needed to depend on any other parts of the engine. This composability is designed to make building audio effects and instruments as intuitive as possible.
+The engine crates are designed to be as modular as possible, so i.e. if you just need a couple oscillators, you can use the oscillator module without needed to depend on any other parts of the engine. This composability is designed to make building audio effects and instruments as intuitive as possible.
 
 The engine supports both the `core` embedded and `std` runtimes, including support for common embedded loggers (`defmt`, `log`), embedded and std library `tracing`, `std` and `alloc` feature sets from underlying libraries, and more via crate feature flags.
 
@@ -36,13 +38,15 @@ Our goal is to make the usage of the engine as seamless as possible across both 
 
 > ⚠️ The modules and their associated boards are a large work-in-progress! Several designs are only half-complete or still in the planning stages.
 
-The modules provides a set of small STM32-based boards that can be embedded into custom PCB designs, or used with a set of associated carrier boards. These carrier boards include basic breadboard header breakouts, some module-integrated protoboard designs, and some options for carriers with a selection of [Molex PicoBlade Connectors](https://www.molex.com/en-us/products/connectors/wire-to-board-connectors/picoblade-connectors) for modular plug-and-play prototyping.
+The modules provides a set of small STM32-based boards that can be embedded into custom PCB designs, or used with a set of associated carrier boards.
 
-See the kits section below for more types of carrier boards that are designed as self-assembled soldering kits that let you quickly get started creating guitar/effects pedals, and small synths and sequencers using the Rythm toolkit.
+These carrier boards include basic breadboard header breakouts, some module-integrated protoboard designs, and some options for carriers with a selection of [Molex PicoBlade Connectors](https://www.molex.com/en-us/products/connectors/wire-to-board-connectors/picoblade-connectors) for modular plug-and-play prototyping.
+
+Also see furthur in the README for kits that are designed as self-assembled soldering kits that let you quickly get started creating guitar/effects pedals, and small synths and sequencers using the toolkit.
 
 > ⚠️ The ecosystem's modules are **NOT** able to be used standalone, they only have fine-pitch [Hirose DF40C board-to-board connectors](https://www.hirose.com/en/product/document?clcode=&productname=&series=DF40&documenttype=Catalog&lang=en&documentid=en_DF40_CAT) - a carrier board is required to interface with them!
 >
-> See our upcoming **Mini Discovery** and **Mini Proto** carriers below for examples, or one of our upcoming soldering kits.
+> See our upcoming carriers or soldering kits below for examples.
 
 ## Mini
 
@@ -121,13 +125,13 @@ And a couple other ideas that need to be planned out:
 
 # Kits
 
-Rythm's hardware ecosystem will also include several soldering kits that are currently in various stages of development:
- * **Rythm Mini**
+The hardware ecosystem will also include several soldering kits that are currently in various stages of development:
+ * **Mini Module**
    * **Guitar/Effects Pedal Kit** - PCB with several connectors for knobs and foot switches, includes some knob and footswitch options, a Mini module, and 
    * **Mini Synth Kit** - A carrier similar to the Korg Volca or Behringer Pro series with a capacitive keyboard, several knobs and buttons, and 3.5mm MIDI minijack. Comes with a few printed faceplates and a 3D printed case. Carrier sockets could be solderable in kit form.
    * **Mini Step Sequencer Kit** - A small step or drum sequencer design, similar to the Roland AIRA Compact or Elektron Model lineup. Buttons and knobs solderable for kit form.
    * **Mini Groovebox Kit** - Something similar to an Elektron Model or Novation Circuit series device. A 4x8 velocity pad grid (velostat?), several knobs, and some menu buttons.
- * **Rythm Card**
+ * **Card Module**
    * **Eurorack Module Kit** - A 4-8 HP (to be determined) Eurorack carrier sporting all the Card CV inputs and outputs as standard 3.5mm sockets, USB, 3.5mm MIDI Minijack and an SD card.
    * **Pro Synth Kit** - Similar to the Midi Synth Kit, but also sporting a display, more control, and 3.5mm CV sockets.
    * **Pro Step Sequencer Kit** - Something similar to an Elektron Digitakt, SEQTRAK, or Korg SQ-1 with 16-step buttons, a display, and some knobs.
