@@ -49,6 +49,8 @@ See the kits section below for more types of carrier boards that are designed as
 | ![Layout](assets/images/mini/layout.png)  | ![Front](assets/images/mini/front.png) | ![Back](assets/images/mini/back.png) |
 |:---:|:---:|:---:|
 
+> ⚠️ Mini is in active design, these images may be out of date.
+
 **[Schematic Viewer](https://kicanvas.org/?github=https%3A%2F%2Fgithub.com%2Fnorthernpaws%2Frythm%2Ftree%2Fmain%2Fhardware%2Fboards%2Fmini%2Fv0.2)**
 
   * 480MHz ARM Cortex-M7 processor (STM32H750XBHx)
@@ -66,6 +68,9 @@ The mini is ideal for applications that don't need a large amount of audio RAM a
 
   * ~~[ ] In Revision 3, see if we can switch to SDMMC2 to enable both QSPI 1 and 2 simultaneously to expose one over the connector.~~
   * [x] *Or connect PG6 (`QUADSPI_BK1_NCS`) to connector, connect QUADSPI1 to connector, and provide a bootloader toggle that allows the carrier to indicate it should use carrier select pin.*
+  * [ ] Determine values of remaining unspecified resistors and capacitors.
+  * [ ] Calculate ideal HSE oscillator for the STM32H750.
+  * [ ] Finish BOM selection for crystal, some resistors and capacitors.
 
 ### Notes
 
