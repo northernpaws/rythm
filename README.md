@@ -78,6 +78,13 @@ The mini is ideal for applications that don't need a large amount of audio RAM a
   * [ ] Determine values of remaining unspecified resistors and capacitors.
   * [ ] Calculate ideal HSE oscillator for the STM32H750.
   * [ ] Finish BOM selection for crystal, some resistors and capacitors.
+  * [ ] Hirose DF40 connectors are now not recommended for dual-connector use. Despite still working for it, I don't feel comfortable going against manufacture recommendations for reliability reasons. For revision 3 we need to change to a single connector, possibly by shifting the MCU and RAM up or down to make room for a longer connector at 90 degrees on the bottom.
+
+### Revision History
+
+ * v0.1 - Original design with a BGA201 package. Ran into too many trace tollerance issues on fan-out, so had to upgrade to the BGA265 package to have enough room to run traces between via-in-pads and to do dogbones.
+ * v0.2 - Changed to BGA 265, but layout changes from the 201 to 265 made x32 SDRAM layout near impossible. Switched to a 16mx16 SDRAM instead, which should be sufficient for the Mini. 
+ * v0.3 - Found possible alignment and tolerance issues with mating 2x Hirose DF40 connectors, so shifted the MCU and codec to change the dual connectors for a single high-density one. 
 
 ### Notes
 
