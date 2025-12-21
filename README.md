@@ -166,6 +166,7 @@ It would not have been possible for me to spend the time or funds on making this
  * [Miika (@nykseli)](https://github.com/Nykseli)
  * Freyja
  * [Mary Guillemard (@marysaka)](https://github.com/marysaka)
+ * [3cats](https://tokilabs.co)
 
 If you would like to support this project, see either my [GitHub Sponsors page](https://github.com/sponsors/northernpaws) or [Patreon](https://www.patreon.com/cw/Northernpaws).
 
