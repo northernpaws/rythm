@@ -1,3 +1,5 @@
+> Rythm is now Catalina!
+
 # Catalina
 
 > ⚠️ This is still a large work-in-progress! A semi-working version (hardware and software) is estimated to be ready around March 2026.
