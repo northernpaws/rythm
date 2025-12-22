@@ -1,13 +1,9 @@
 use heapless::index_map::FnvIndexMap;
 
 use catalina_engine::{
-    audio::{
-        AudioSource, FromSample, Sample,
-        oscillator::{self, Oscillator, OscillatorType, RuntimeOscillator},
-        sample,
-    },
+    audio::{AudioSource, FromSample, Sample, oscillator},
     instrument::{Instrument, NoteError},
-    music::note::{self, Note},
+    music::note::Note,
 };
 
 /// Implements the oscillators for the additive synth, including parameters
@@ -22,8 +18,16 @@ pub struct AdditiveOscillator {
 }
 
 impl AdditiveOscillator {
+    pub fn new(sample_rate: usize, frequency_corse: u8, frequency_fine: u8) -> Self {
+        Self {
+            sample_rate,
+            frequency_corse,
+            frequency_fine,
+        }
+    }
+
     /// Sample the oscillator for the provided note.
-    pub fn sample<S: Sample + FromSample<f32>>(&self, phase: usize, note: Note) -> S {
+    pub fn sample<S: Sample + FromSample<f32>>(&self, phase: usize, note: &'_ Note) -> S {
         // Get the frequency of the note in hertz.
         //
         // We use this as the base frequency of our oscillators so
@@ -32,7 +36,7 @@ impl AdditiveOscillator {
 
         // Sample a sine wave using the provided voice phase, note frequency,
         // and the configured per-oscillator frequency offsets.
-        oscillator::sample_sine(phase, self.sample_rate, note_freq + ())
+        oscillator::sample_sine(phase, self.sample_rate, note_freq) // + self.frequency_corse
     }
 }
 
@@ -59,11 +63,7 @@ impl AdditiveSynth {
 
             // By default we're only populating the first oscillator.
             oscillators: [
-                Some(RuntimeOscillator::new(
-                    OscillatorType::Sine,
-                    sample_rate,
-                    note::CFour.frequency(),
-                )),
+                Some(AdditiveOscillator::new(sample_rate, 0, 0)),
                 None,
                 None,
                 None,
@@ -74,23 +74,51 @@ impl AdditiveSynth {
     }
 }
 
+impl AudioSource for AdditiveSynth {
+    type Frame = f32;
+
+    fn render(&mut self, buffer: &'_ mut [Self::Frame]) {
+        for i in 0..buffer.len() {
+            let mut sample = 0.0;
+
+            // Loop through each active voice and sum them for the frame.
+            for (note, voice) in self.voices.iter_mut() {
+                let mut voice_sample = 0.0;
+
+                // Process each configured oscillator for each voice.
+                for optional_osc in &self.oscillators {
+                    let Some(osc) = optional_osc else {
+                        continue;
+                    };
+
+                    // Sample each configured oscillator and add them together.
+                    voice_sample = voice_sample + osc.sample::<f32>(voice.phase, note);
+
+                    // Shift the base oscillator phase of the voice
+                    // so that the voices oscillate independently.
+                    voice.phase = (voice.phase + 1) % self.sample_rate;
+                }
+
+                sample = sample + voice_sample;
+            }
+
+            // Note that the resulting buffer will be clipped on playback
+            // depending on the voice count and frequencies.
+            //
+            // It's on the receiving end of the rendered buffer to apply
+            // amplitude scaling to bring the audio samples down to an
+            // acceptable level for playback.
+            buffer[i] = sample;
+        }
+    }
+}
+
 /// The interfaces for controlling the instrument from the framework.
 impl Instrument for AdditiveSynth {
     fn init(&mut self) {}
 
     /// Called when a note is pressed.
     fn note_on(&mut self, note: Note, _velocity: u8) -> Result<(), NoteError> {
-        // Get the frequency of the note in hertz.
-        //
-        // We use this as the frequency of our voice oscillator so
-        // that the oscillator plays in-key with the triggered note.
-        let freq = note.frequency();
-
-        println!(
-            "adding note {:?} freq={} sample_rate={}",
-            note, freq.0, self.sample_rate
-        );
-
         // Attempt to add a voice.
         //
         // .insert() will return an error if the voices map is full.
@@ -111,50 +139,6 @@ impl Instrument for AdditiveSynth {
     fn note_off(&mut self, note: Note) {
         // Remove the voice for the note when the note is released.
         self.voices.remove(&note);
-    }
-}
-
-/// The interfaces for rendering the audio output from the synth.
-///
-/// This is a mono implementation.
-impl AudioSource for SineInstrument {
-    /// Single frame type = mono.
-    type Frame = f32;
-
-    /// Render out to a mono audio buffer.
-    fn render(&mut self, buffer: &'_ mut [f32]) {
-        for i in 0..buffer.len() {
-            let mut sample = 0.0;
-
-            // Loop through each active voice and sum them for the frame.
-            for (note, voice) in self.voices.iter_mut() {
-                let mut voice_sample = 0.0;
-
-                // Process each configured oscillator for each voice.
-                for optional_osc in oscillators {
-                    let Some(osc) = optional_osc else {
-                        continue;
-                    };
-
-                    // Sample each configured oscillator and add them together.
-                    voice_sample = voice_sample + osc.sample(voice.phase, note);
-
-                    // Shift the base oscillator phase of the voice
-                    // so that the voices oscillate independently.
-                    voice.phase = (voice.phase + 1) % self.sample_rate;
-                }
-
-                sample = sample + voice_sample;
-            }
-
-            // Note that the resulting buffer will be clipped on playback
-            // depending on the voice count and frequencies.
-            //
-            // It's on the receiving end of the rendered buffer to apply
-            // amplitude scaling to bring the audio samples down to an
-            // acceptable level for playback.
-            buffer[i] = sample;
-        }
     }
 }
 
