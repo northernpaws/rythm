@@ -4,16 +4,19 @@
 extern crate alloc;
 
 /// Re-export the engine crate under the root crate.
+#[cfg(feature = "engine")]
 pub mod engine {
     pub use catalina_engine::*;
 }
 
 /// Re-export the BSP crate under the root crate.
+#[cfg(feature = "bsp")]
 pub mod bsp {
     pub use catalina_bsp::*;
 }
 
 /// Re-export the BSP crate under the root crate.
+#[cfg(feature = "instruments")]
 pub mod instruments {
     pub use catalina_instruments::*;
 }
