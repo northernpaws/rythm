@@ -15,19 +15,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1fd0f2584146f6f2ef48085050886acf353beff7305ebd1ae69500e27c67f64b"
 
 [[package]]
-name = "catalina"
-version = "0.0.1"
-dependencies = [
- "catalina-bsp",
- "catalina-engine",
- "catalina-instruments",
-]
-
-[[package]]
-name = "catalina-bsp"
-version = "0.1.0"
-
-[[package]]
 name = "catalina-engine"
 version = "0.0.1"
 dependencies = [
@@ -38,13 +25,6 @@ dependencies = [
  "paste",
  "pretty_assertions",
  "serde",
-]
-
-[[package]]
-name = "catalina-instruments"
-version = "0.1.0"
-dependencies = [
- "catalina-engine",
 ]
 
 [[package]]

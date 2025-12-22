@@ -1,8 +1,8 @@
-# Rythm
+# Catalina
 
 > ⚠️ This is still a large work-in-progress! A semi-working version (hardware and software) is estimated to be ready around March 2026.
 
-Rythm is an embedded-first Rust ecosystem for building music and audio processing devices, with a primary focus on ARM Cortex MCUs as the end-target.
+Catalina is an embedded-first Rust ecosystem for building music and audio processing devices, with a primary focus on ARM Cortex MCUs as the end-target.
 
 The ecosystem is comprised of:
  * A Rust crate providing a DSP and audio engine designed for embedded devices (heapless by default, small footprint).
@@ -27,7 +27,7 @@ The ecosystem is comprised of:
 
 # Engine
 
-`rythm-engine` is a set of embedded-first DSP and audio engine crates that can be quickly integrated into embedded projects as a dependency, or used standalone with the std library for audio application.
+`catalina-engine` is a set of embedded-first DSP and audio engine crates that can be quickly integrated into embedded projects as a dependency, or used standalone with the std library for audio application.
 
 The engine crates are designed to be as modular as possible, so i.e. if you just need a couple oscillators, you can use the oscillator module without needed to depend on any other parts of the engine. This composability is designed to make building audio effects and instruments as intuitive as possible.
 
@@ -58,7 +58,7 @@ Also see furthur in the README for kits that are designed as self-assembled sold
 
 > ⚠️ Mini is in active design, these images may be out of date.
 
-**[Schematic Viewer](https://kicanvas.org/?github=https%3A%2F%2Fgithub.com%2Fnorthernpaws%2Frythm%2Ftree%2Fmain%2Fhardware%2Fboards%2Fmini%2Fv0.2)**
+**[Schematic Viewer](https://kicanvas.org/?github=https%3A%2F%2Fgithub.com%2Fnorthernpaws%2Fcatalina%2Ftree%2Fmain%2Fhardware%2Fboards%2Fmini%2Fv0.2)**
 
   * 480MHz ARM Cortex-M7 processor (STM32H750XBHx)
   * 32MB of 16-bit SDRAM for audio buffers

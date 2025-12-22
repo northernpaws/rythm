@@ -1,0 +1,28 @@
+[package]
+name = "catalina-engine"
+version = "0.0.1"
+edition = "2024"
+
+
+[dependencies]
+
+defmt = { version = "1.0.1", optional = true }
+heapless = "0.9.2"
+pretty_assertions = "1.4.1"
+
+# (De)serialization
+serde = { version = "1", features = ["derive"], optional = true }
+# Traits for representing audio samples, frames, etc.
+dasp = { version = "0.11.0", default-features = false, features = ["slice"] }
+float_eq = "1.0.1"
+paste = "1.0.15"
+
+[features]
+default = ["serde"]
+
+std = ["alloc", "dasp/std"]
+alloc = []
+
+serde = ["dep:serde"]
+defmt = ["dep:defmt"]
+log = []

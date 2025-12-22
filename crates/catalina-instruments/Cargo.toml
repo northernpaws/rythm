@@ -1,0 +1,12 @@
+[package]
+name = "catalina-instruments"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+catalina-engine = { path = "../catalina-engine" }
+
+[features]
+default = []
+std = []
+alloc = []

@@ -1,29 +1,40 @@
 [package]
-name = "rythm"
+name = "catalina"
 version = "0.0.1"
 edition = "2024"
-
+license = "MIT"
+description = "Embedded Rust ecosystem for audio processing and music"
+repository = "https://github.com/northernpaws/catalina"
+readme = "CRATE.md"
+keywords = ["audio", "music", "dsp"]
+categories = [
+    "command-line-utilities",
+    "multimedia::audio",
+    "no-std",
+    "no-std::no-alloc",
+    "embedded",
+]
 
 [dependencies]
 # The core audio and synth engine.
-rythm-engine = { path = "crates/engine" }
+catalina-engine = { path = "crates/catalina-engine" }
 
 # Basic insturments implementations for examples.
-rythm-instruments = { path = "crates/instruments" }
+catalina-instruments = { path = "crates/catalina-instruments" }
 
 # Board support packages for modules, carriers and kits from the ecosystem.
-rythm-bsp = { path = "crates/bsp" }
+catalina-bsp = { path = "crates/catalina-bsp" }
 
 [features]
 
 # Generic common feature flags.
 default = []
-std = ["rythm-engine/std", "rythm-instruments/std"]
-alloc = ["rythm-engine/alloc", "rythm-instruments/alloc"]
-defmt = ["rythm-engine/defmt"]
-log = ["rythm-engine/log"]
-serde = ["rythm-engine/serde"]
+std = ["catalina-engine/std", "catalina-instruments/std"]
+alloc = ["catalina-engine/alloc", "catalina-instruments/alloc"]
+defmt = ["catalina-engine/defmt"]
+log = ["catalina-engine/log"]
+serde = ["catalina-engine/serde"]
 
 # Features derrived from the BSP support modules.
-bsp-mini = ["rythm-bsp/mini"]
-bsp-mini-v0_2 = ["rythm-bsp/mini-v0_2"]
+bsp-mini = ["catalina-bsp/mini"]
+bsp-mini-v0_2 = ["catalina-bsp/mini-v0_2"]
