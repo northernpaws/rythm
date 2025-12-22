@@ -1,3 +1,10 @@
+[workspace]
+members = [
+    "crates/*",
+    "crates/catalina-engine/examples/std/*",
+    "crates/catalina-engine/examples/embedded/*",
+]
+
 [package]
 name = "catalina"
 version = "0.0.1"

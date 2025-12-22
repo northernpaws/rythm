@@ -213,6 +213,6 @@ mod tests {
     #[test]
     fn test_properties() {
         self::assert_eq!(Pitch::G.pitch(), Pitch::G);
-        self::assert_eq!(Pitch::G.base_frequency(), 24.50);
+        self::assert_eq!(Pitch::G.base_frequency().hertz(), 24.50);
     }
 }
