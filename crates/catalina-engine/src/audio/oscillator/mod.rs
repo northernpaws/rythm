@@ -26,6 +26,19 @@ use crate::{core::Frequency, prelude::*};
 const PI2: f32 = PI * 2.0;
 
 /// Generates a sample of a sine wave given the provided
+/// phase, sample rate, frequency, and amplitude.
+///
+/// Phase can be calculated as (sample_index % sample_rate) / sample_rate.
+pub fn sine<S: Sample + FromSample<f32>>(phase: f32) -> S {
+    // Note that to_sample() handles the convertion of
+    // the float-based waveform into other bit depth
+    // domains - for f32 it's a no-op.
+
+    // TODO: replace 2.0*PI with TAU?
+    ((2.0 * PI * phase).sin()).to_sample()
+}
+
+/// Generates a sample of a sine wave given the provided
 /// time index, sample rate, frequency, and amplitude.
 pub fn sample_sine<S: Sample + FromSample<f32>>(
     index: usize,
@@ -36,9 +49,19 @@ pub fn sample_sine<S: Sample + FromSample<f32>>(
     // the float-based waveform into other bit depth
     // domains - for f32 it's a no-op.
 
-    let time = index as f32 / sample_rate as f32;
-    // TODO: replace 2.0*PI with TAU?
-    ((2.0 * PI * frequency.0 * time).sin()).to_sample()
+    sine(frequency.0 * index as f32 / sample_rate as f32)
+}
+
+/// Generates a sample of a saw wave given the provided
+/// phase, sample rate, frequency, and amplitude.
+///
+/// Phase can be calculated as (sample_index % sample_rate) / sample_rate.
+pub fn saw<S: Sample + FromSample<f32>>(phase: f32) -> S {
+    // Note that to_sample() handles the convertion of
+    // the float-based waveform into other bit depth
+    // domains - for f32 it's a no-op.
+
+    (1.0 - (phase % 1.0) * 2.0).to_sample()
 }
 
 /// Generates a sample of a saw wave given the provided
@@ -48,11 +71,24 @@ pub fn sample_saw<S: Sample + FromSample<f32>>(
     sample_rate: usize,
     frequency: Frequency,
 ) -> S {
+    saw(index as f32 / sample_rate as f32 * frequency.0)
+}
+
+/// Generates a sample of a triangle wave given the
+/// provided phase, sample rate, and frequency.
+///
+/// Phase can be calculated as (sample_index % sample_rate) / sample_rate.
+pub fn triangle<S: Sample + FromSample<f32>>(phase: f32) -> S {
     // Note that to_sample() handles the convertion of
     // the float-based waveform into other bit depth
     // domains - for f32 it's a no-op.
 
-    (1.0 - ((index as f32 / sample_rate as f32 * frequency.0) % 1.0) * 2.0).to_sample()
+    let slope = phase % 1.0 * 2.0;
+    if slope < 1.0 {
+        (-1.0 + slope * 2.0).to_sample()
+    } else {
+        (3.0 - slope * 2.0).to_sample()
+    }
 }
 
 /// Generates a sample of a triangle wave given the
@@ -62,15 +98,22 @@ pub fn sample_triangle<S: Sample + FromSample<f32>>(
     sample_rate: usize,
     frequency: Frequency,
 ) -> S {
+    triangle(index as f32 / sample_rate as f32 * frequency.0)
+}
+
+/// Generates a sample of a square wave given the
+/// provided phase, sample rate, and frequency.
+///
+/// Phase can be calculated as (sample_index % sample_rate) / sample_rate.
+pub fn square<S: Sample + FromSample<f32>>(phase: f32, duty_cycle: DutyCycle) -> S {
     // Note that to_sample() handles the convertion of
     // the float-based waveform into other bit depth
     // domains - for f32 it's a no-op.
 
-    let slope = (index as f32 / sample_rate as f32 * frequency.0) % 1.0 * 2.0;
-    if slope < 1.0 {
-        (-1.0 + slope * 2.0).to_sample()
+    if phase % 1.0 < duty_cycle.to_fractional() {
+        (1.0).to_sample()
     } else {
-        (3.0 - slope * 2.0).to_sample()
+        (-1.0).to_sample()
     }
 }
 
@@ -82,15 +125,7 @@ pub fn sample_square<S: Sample + FromSample<f32>>(
     frequency: Frequency,
     duty_cycle: DutyCycle,
 ) -> S {
-    // Note that to_sample() handles the convertion of
-    // the float-based waveform into other bit depth
-    // domains - for f32 it's a no-op.
-
-    if (index as f32 / sample_rate as f32 * frequency.0) % 1.0 < duty_cycle.to_fractional() {
-        (1.0).to_sample()
-    } else {
-        (-1.0).to_sample()
-    }
+    square(index as f32 / sample_rate as f32 * frequency.0, duty_cycle)
 }
 
 /// Temporary solution to specifying an Eq compatile duty cycle.
@@ -169,7 +204,17 @@ pub enum TableError {
 
 impl OscillatorType {
     /// Samples an oscillator waveform depending on the selected type.
-    pub fn sample<S: Sample + FromSample<f32>>(
+    pub fn sample<S: Sample + FromSample<f32>>(&self, phase: f32, duty_cycle: DutyCycle) -> S {
+        match self {
+            OscillatorType::Sine => sine(phase),
+            OscillatorType::Saw => saw(phase),
+            OscillatorType::Triangle => triangle(phase),
+            OscillatorType::Square => square(phase, duty_cycle),
+        }
+    }
+
+    /// Samples an oscillator waveform depending on the selected type.
+    pub fn sample_index<S: Sample + FromSample<f32>>(
         &self,
         index: usize,
         sample_rate: usize,
@@ -215,7 +260,7 @@ impl OscillatorType {
 
             _ => {
                 for (index, row) in table.iter_mut().enumerate() {
-                    *row = self.sample(index, sample_rate, frequency, duty_cycle);
+                    *row = self.sample_index(index, sample_rate, frequency, duty_cycle);
                 }
             }
         }
@@ -283,7 +328,7 @@ impl RuntimeOscillator {
         freq: Frequency,
     ) -> S {
         self.osc_type
-            .sample(phase, self.sample_rate, freq, self.duty_cycle)
+            .sample_index(phase, self.sample_rate, freq, self.duty_cycle)
     }
 }
 
@@ -291,7 +336,7 @@ impl<S: Sample + FromSample<f32>> Oscillator<S> for RuntimeOscillator {
     /// Sample from the oscillator at the provided sample index.
     fn sample(&self, index: usize) -> S {
         self.osc_type
-            .sample(index, self.sample_rate, self.frequency, self.duty_cycle)
+            .sample_index(index, self.sample_rate, self.frequency, self.duty_cycle)
     }
 }
 

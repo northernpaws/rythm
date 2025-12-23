@@ -27,7 +27,7 @@ impl AdditiveOscillator {
     }
 
     /// Sample the oscillator for the provided note.
-    pub fn sample<S: Sample + FromSample<f32>>(&self, phase: usize, note: &'_ Note) -> S {
+    pub fn sample<S: Sample + FromSample<f32>>(&self, time_index: usize, note: &'_ Note) -> S {
         // Get the frequency of the note in hertz.
         //
         // We use this as the base frequency of our oscillators so
@@ -36,7 +36,7 @@ impl AdditiveOscillator {
 
         // Sample a sine wave using the provided voice phase, note frequency,
         // and the configured per-oscillator frequency offsets.
-        oscillator::sample_sine(phase, self.sample_rate, note_freq) // + self.frequency_corse
+        oscillator::sample_sine(time_index, self.sample_rate, note_freq) // + self.frequency_corse
     }
 }
 
