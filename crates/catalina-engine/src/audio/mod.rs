@@ -2,14 +2,13 @@ pub mod oscillator;
 
 // Re-export `dasp` so the version used by the engine
 // can be transparently imported by other crates.
-pub use dasp::{
-    Frame,
-    frame::{self, Mono, Stereo},
-    slice,
-};
+pub use dasp::slice;
 
 pub mod sample;
 pub use sample::{FromSample, Sample};
+
+pub mod frame;
+pub use frame::{Frame, Mono, Stereo};
 
 pub trait AudioSource {
     type Frame: Frame;
