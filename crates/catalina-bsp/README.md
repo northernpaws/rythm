@@ -1,4 +1,4 @@
-# Board Support Packages
+# Catalina Board Support Packages
 
 The Board Support Packages (BSP) crate provides preconfigured hardware abstractions and periperal drivers for modules and boards included in the ecosystem. 
 

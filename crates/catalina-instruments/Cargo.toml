@@ -3,6 +3,9 @@ name = "catalina-instruments"
 version = "0.1.0"
 edition = "2024"
 description = "Basic instruments to quickly get started with on Catalina hardware, also serves as references and samples for the instrument framework."
+keywords = ["audio", "music", "dsp"]
+repository = "https://github.com/northernpaws/catalina"
+license = "MIT"
 
 [dependencies]
 catalina-engine = { path = "../catalina-engine", version = "0.1.0" }
