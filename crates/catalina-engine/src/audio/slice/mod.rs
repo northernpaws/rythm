@@ -1,4 +1,4 @@
-//! For working with slices of PCM audio data.
+//! Functions and trais for working with slices of audio data.
 //!
 //! Items related to conversion between slices of frames and slices of samples, particularly useful
 //! for working with interleaved data.

@@ -1,4 +1,4 @@
-//! Use the Sample trait to remain generic over sample types, easily
+//! Use the [**Sample**](./trait.Sample.html) trait to remain generic over sample types, easily
 //! access sample type conversions, apply basic audio operations and more.
 //!
 //! The frame types where adapted from [dasp](https://github.com/RustAudio/dasp/tree/master)

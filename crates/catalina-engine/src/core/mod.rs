@@ -1,3 +1,5 @@
+//! Provides common types, traits, etc. that are used throughout the entire engine.
+
 use crate::prelude::*;
 
 use core::ops::Mul;

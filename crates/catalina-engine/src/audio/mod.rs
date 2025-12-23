@@ -1,3 +1,9 @@
+//! The audio crate provides the DSP fundamentals for building audio and synthesis chains.
+//!
+//! In this crate you'll find most of the building blocks you need to perform most common DSP
+//! tasks. Combining these blocks together can be used to make a larger audio processing change
+//! or for more complex sound synthesis.
+
 // Traits for working with audio samples.
 pub mod sample;
 pub use sample::{FromSample, Sample};

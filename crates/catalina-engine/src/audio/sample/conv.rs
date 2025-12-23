@@ -678,8 +678,7 @@ impl_from_sample! {f64, to_f64 from
 
 /// Similar to the std `Into` trait, but specifically for converting between sample types.
 ///
-/// This trait has a blanket implementation for all types that implement
-/// [`FromSample`](./trait.FromSample.html).
+/// This trait has a blanket implementation for all types that implement `FromSample`.
 pub trait ToSample<S> {
     fn to_sample_(self) -> S;
 }
