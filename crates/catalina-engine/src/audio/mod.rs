@@ -19,6 +19,8 @@ pub mod slice;
 // Traits and implementations for working with oscillators.
 pub mod oscillator;
 
+pub mod envelope;
+
 pub trait AudioSource {
     type Frame: Frame;
 
