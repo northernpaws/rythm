@@ -16,7 +16,11 @@ use core::array;
 
 use heapless::index_map::FnvIndexMap;
 
-use crate::audio::sample::{FromSample, Sample};
+use crate::audio::{
+    Frame, Mono,
+    sample::{FromSample, Sample},
+    signal::Signal,
+};
 
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
@@ -361,6 +365,14 @@ impl<S: Sample + FromSample<f32>> Oscillator<S> for RuntimeOscillator {
     }
 }
 
+impl Signal for RuntimeOscillator {
+    type Frame = f32;
+
+    fn next(&mut self) -> Self::Frame {
+        self.sample()
+    }
+}
+
 /// Provides an oscillator that oscillates in a sine, saw, triangle,
 /// or square wave by sampling from a pre-generated lookup table.
 ///
@@ -414,6 +426,18 @@ impl<'a, LookupSample: Sample + FromSample<f32>> Oscillator<LookupSample>
         }
 
         sample
+    }
+}
+
+/// Allows using the oscillator in conjunction with other Signal traits.
+impl<'a, LookupSample: Sample + FromSample<f32>> Signal for LookupOscillator<'a, LookupSample>
+where
+    LookupSample: Frame,
+{
+    type Frame = LookupSample;
+
+    fn next(&mut self) -> Self::Frame {
+        self.sample()
     }
 }
 

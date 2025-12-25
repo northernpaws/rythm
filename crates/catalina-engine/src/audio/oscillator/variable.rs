@@ -6,7 +6,7 @@
 //! Ported from Emilie Gillet's [implementation in Mutable Instrument's Plaits](https://github.com/pichenettes/eurorack/blob/master/plaits/dsp/oscillator/variable_shape_oscillator.h) from 2016.
 
 use crate::{
-    audio::{FromSample, Sample},
+    audio::{FromSample, Mono, Sample, oscillator::Oscillator, signal::Signal},
     core::Hertz,
 };
 
@@ -246,5 +246,14 @@ impl<S: Sample + FromSample<f32>> super::Oscillator<S> for VariableShapeOscillat
         self.next_sample = next_sample;
 
         (2.0 * this_sample - 1.0).to_sample()
+    }
+}
+
+/// Allows using the oscillator in conjunction with other Signal traits.
+impl Signal for VariableShapeOscillator {
+    type Frame = f32;
+
+    fn next(&mut self) -> Self::Frame {
+        self.sample()
     }
 }
