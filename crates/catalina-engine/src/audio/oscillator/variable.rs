@@ -7,6 +7,7 @@
 
 use crate::core::Hertz;
 
+/// Ported from https://github.com/pichenettes/eurorack/blob/master/plaits/dsp/oscillator/variable_shape_oscillator.h
 fn compute_naive_sample(
     phase: f32,
     pw: f32,
