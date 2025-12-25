@@ -1,9 +1,5 @@
 [workspace]
-members = [
-    "crates/*",
-    "crates/catalina-engine/examples/std/*",
-    "crates/catalina-engine/examples/embedded/*",
-]
+members = ["crates/*", "examples/std/*", "examples/embedded/*"]
 
 [workspace.package]
 keywords = ["audio", "music", "dsp"]

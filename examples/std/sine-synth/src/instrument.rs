@@ -1,6 +1,6 @@
 use heapless::index_map::FnvIndexMap;
 
-use catalina_engine::{
+use catalina::engine::{
     audio::{
         AudioSource, FromSample, Sample,
         oscillator::{Oscillator, OscillatorType, RuntimeOscillator},

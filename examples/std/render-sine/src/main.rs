@@ -1,4 +1,4 @@
-use catalina_engine::{
+use catalina::engine::{
     audio::oscillator::{self, Oscillator},
     core::Hertz,
 };

@@ -5,4 +5,4 @@ edition = "2024"
 
 [dependencies]
 hound = "3.5.1"
-catalina-engine = { path = "../../../", features = ["std"] }
+catalina = { path = "../../../", features = ["std"] }

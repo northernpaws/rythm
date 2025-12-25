@@ -1,4 +1,4 @@
-use catalina_engine::sequence;
+use catalina::engine::sequence;
 
 // To easily defined the limits of our step sequencer
 // we can create a few constants and type aliases.

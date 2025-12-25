@@ -6,4 +6,4 @@ edition = "2024"
 [dependencies]
 anyhow = "1.0.100"
 cpal = "0.16.0"
-catalina-engine = { path = "../../../", features = ["std"] }
+catalina = { path = "../../../", features = ["std"] }
