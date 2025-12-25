@@ -279,8 +279,21 @@ impl OscillatorType {
 ///
 /// See [`RuntimeOscillator`] and [`LookupOscillator`] for implementations.
 pub trait Oscillator<S: Sample + FromSample<f32>> {
-    /// Samples the oscillator for the provided sample index.
-    fn sample(&self, index: usize) -> S;
+    /// Takes the next sample from the oscillator and
+    /// advances the phase depending on the frequency.
+    fn sample(&mut self) -> S;
+
+    /// Like [sample], but renders the oscillator to the provided
+    /// buffer calling [sample] for each element in the buffer.
+    ///
+    /// The default implementaiton just calls [sample] in a loop.
+    ///
+    /// This should ideally be specialized to do out-of-loop calculations where possible.
+    fn render(&mut self, buffer: &'_ mut [S]) {
+        for i in 0..buffer.len() {
+            buffer[i] = self.sample();
+        }
+    }
 }
 
 /// Provides an oscillator that oscillates in a sine, saw, triangle,
@@ -302,6 +315,8 @@ pub struct RuntimeOscillator {
 
     /// Fractional duty cycle for square waves.
     duty_cycle: DutyCycle,
+
+    phase: f32,
 }
 
 impl RuntimeOscillator {
@@ -312,6 +327,7 @@ impl RuntimeOscillator {
             sample_rate,
             frequency,
             duty_cycle: DutyCycle::Half,
+            phase: 0.0,
         }
     }
 
@@ -336,9 +352,12 @@ impl RuntimeOscillator {
 
 impl<S: Sample + FromSample<f32>> Oscillator<S> for RuntimeOscillator {
     /// Sample from the oscillator at the provided sample index.
-    fn sample(&self, index: usize) -> S {
-        self.osc_type
-            .sample_index(index, self.sample_rate, self.frequency, self.duty_cycle)
+    fn sample(&mut self) -> S {
+        let sample = self.osc_type.sample(self.phase, self.duty_cycle);
+
+        self.phase = self.phase + (self.frequency.hertz() / self.sample_rate as f32);
+
+        sample
     }
 }
 
@@ -351,18 +370,34 @@ impl<S: Sample + FromSample<f32>> Oscillator<S> for RuntimeOscillator {
 // TODO: ideally the table sample type would be typed so the table could be
 //  cached in a different/lower sample type without requiring conversion.
 pub struct LookupOscillator<'a, LookupSample: Sample + FromSample<f32>> {
+    sample_rate: usize,
+
     /// The table is implemented as a reference to allow a shared oscillator
     /// allocator to handle a pool of waveform lookup tables.
     ///
     /// This allows oscillators with the same parameters (type, freq, sample
     /// rate) to share the same lookup table to avoid duplicating memory.
     table: &'a [LookupSample],
+
+    index: usize,
 }
 
 impl<'a, LookupSample: Sample + FromSample<f32>> LookupOscillator<'a, LookupSample> {
     /// Constructs a new lookup table-based oscillator from the provided table.
-    pub fn new_from_table(table: &'a [LookupSample]) -> Self {
-        Self { table }
+    pub fn new_from_table(sample_rate: usize, table: &'a [LookupSample]) -> Self {
+        // TODO: error is table.len() != sample_rate
+        Self {
+            sample_rate,
+            table,
+            index: 0,
+        }
+    }
+
+    /// Take a sample at the specified sample index from the oscillator.
+    fn sample_at(&self, index: usize) -> LookupSample {
+        // Modulo ensures that the sample index is wrapped
+        // within the sample rate of the oscillator table.
+        self.table[index % self.table.len()]
     }
 }
 
@@ -370,10 +405,15 @@ impl<'a, LookupSample: Sample + FromSample<f32>> Oscillator<LookupSample>
     for LookupOscillator<'a, LookupSample>
 {
     /// Take a sample at the specified sample index from the oscillator.
-    fn sample(&self, index: usize) -> LookupSample {
-        // Modulo ensures that the sample index is wrapped
-        // within the sample rate of the oscillator table.
-        self.table[index % self.table.len()]
+    fn sample(&mut self) -> LookupSample {
+        let sample = self.table[self.index];
+
+        self.index = self.index + 1;
+        if self.index >= self.sample_rate {
+            self.index = 0;
+        }
+
+        sample
     }
 }
 

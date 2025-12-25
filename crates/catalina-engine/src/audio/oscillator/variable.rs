@@ -5,7 +5,10 @@
 //!
 //! Ported from Emilie Gillet's [implementation in Mutable Instrument's Plaits](https://github.com/pichenettes/eurorack/blob/master/plaits/dsp/oscillator/variable_shape_oscillator.h) from 2016.
 
-use crate::core::Hertz;
+use crate::{
+    audio::{FromSample, Sample},
+    core::Hertz,
+};
 
 /// Ported from https://github.com/pichenettes/eurorack/blob/master/plaits/dsp/oscillator/variable_shape_oscillator.h
 fn compute_naive_sample(
@@ -137,9 +140,11 @@ impl VariableShapeOscillator {
         self.pulse_width = if freq >= 0.25 { 0.5 } else { self.pulse_width };
         self.slave_frequency = if freq >= 0.25 { 0.25 } else { freq };
     }
+}
 
+impl<S: Sample + FromSample<f32>> super::Oscillator<S> for VariableShapeOscillator {
     /// Reads the next sample from the oscillator.
-    pub fn sample(&mut self) -> f32 {
+    fn sample(&mut self) -> S {
         let mut next_sample: f32 = self.next_sample;
 
         let mut reset = false;
@@ -240,6 +245,6 @@ impl VariableShapeOscillator {
 
         self.next_sample = next_sample;
 
-        return 2.0 * this_sample - 1.0;
+        (2.0 * this_sample - 1.0).to_sample()
     }
 }
