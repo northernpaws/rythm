@@ -75,6 +75,38 @@ impl Mul<f32> for Hertz {
     }
 }
 
+impl Add<Hertz> for Hertz {
+    type Output = Hertz;
+
+    fn add(self, rhs: Hertz) -> Self::Output {
+        Hertz(self.0 + rhs.0)
+    }
+}
+
+impl Add<f32> for Hertz {
+    type Output = Hertz;
+
+    fn add(self, rhs: f32) -> Self::Output {
+        Hertz(self.0 + rhs)
+    }
+}
+
+impl Sub<Hertz> for Hertz {
+    type Output = Hertz;
+
+    fn sub(self, rhs: Hertz) -> Self::Output {
+        Hertz(self.0 - rhs.0)
+    }
+}
+
+impl Sub<f32> for Hertz {
+    type Output = Hertz;
+
+    fn sub(self, rhs: f32) -> Self::Output {
+        Hertz(self.0 - rhs)
+    }
+}
+
 /// Allows us to properly use frequencies as keys in hashmaps.
 impl Hash for Hertz {
     fn hash<H: Hasher>(&self, hasher: &mut H) {

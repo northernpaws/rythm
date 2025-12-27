@@ -1,11 +1,14 @@
-use crate::{audio::AudioSource, music::note::Note};
+use crate::{
+    audio::{AudioSource, signal::Signal},
+    music::note::Note,
+};
 
 #[derive(Debug)]
 pub enum NoteError {
     NoVoices,
 }
 
-pub trait Instrument: AudioSource {
+pub trait Instrument: AudioSource + Signal {
     /// Initializes the instrument for use.
     fn init(&mut self);
 

@@ -4,6 +4,7 @@ use catalina::engine::{
     audio::{
         AudioSource, FromSample, Sample,
         oscillator::{Oscillator, OscillatorType, RuntimeOscillator},
+        signal::Signal,
     },
     instrument::{Instrument, NoteError},
     music::note::Note,
@@ -77,6 +78,27 @@ impl AudioSource for SineInstrument {
             // acceptable level for playback.
             buffer[i] = sample;
         }
+    }
+}
+
+impl Signal for SineInstrument {
+    type Frame = f32;
+
+    fn next(&mut self) -> Self::Frame {
+        let mut sample = 0.0;
+
+        // Loop through each active voice and sum them for the frame.
+        for (_, voice) in self.voices.iter_mut() {
+            sample = sample + voice.next_sample::<f32>();
+        }
+
+        // Note that the resulting buffer will be clipped on playback
+        // depending on the voice count and frequencies.
+        //
+        // It's on the receiving end of the rendered buffer to apply
+        // amplitude scaling to bring the audio samples down to an
+        // acceptable level for playback.
+        sample
     }
 }
 
